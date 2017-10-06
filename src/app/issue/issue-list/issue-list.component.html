@@ -1,0 +1,45 @@
+<div class="container p-lg-5">
+  <div class="row justify-content-center">
+    <button class="btn btn-primary btn-lg" (click)="onNewIssue()">Zgłoś problem</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col col-xs-6">
+      <h2>Issues</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Category</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Created by</th>
+            <!--<th>Created at</th>-->
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let i of issues">
+            <td>{{i.lat}}</td>
+            <td>{{i.lng}}</td>
+            <td>{{i.category}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.desc}}</td>
+            <td>{{i.status}}</td>
+            <td>{{i.createdBy}}</td>
+            <!--<td>{{i.createdAt}}</td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col col-xs-6">
+      <app-map></app-map>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="header">
+  <h4 class="title">Nowy problem</h4>
+</div>
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div class="body">
+    <app-issue-new-map (coordinatesChanged)="onCoordinatesChanged($event)"></app-issue-new-map>
+    <p></p>
+    <div class="row justify-content-center">
+      <label type="button" class="btn btn-secondary">Dodaj zdjecie
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label for="selectCategory">Kategoria</label>
+      <select class="form-control" #selectCategory id="selectCategory" (change)="setCategory(selectCategory.value)">
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="title">Krótki opis problemu *</label>
+      <input required [(ngModel)]="issueBuilder.title" name="title" type="text" class="form-control" id="title">
+    </div>
+
+    <div class="form-group">
+      <label for="desc">Szczegolowy opis problemu</label>
+      <textarea [(ngModel)]="issueBuilder.desc" name="desc" id="desc" rows="5" class="form-control"></textarea>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <button type="submit" [disabled]="!f.valid" class="btn btn-primary btn-lg">Gotowe!</button>
+  </div>
+</form>
