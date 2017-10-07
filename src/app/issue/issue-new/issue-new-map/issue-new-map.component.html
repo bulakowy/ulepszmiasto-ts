@@ -1,3 +1,8 @@
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="defaultZoom" (mapClick)="mapClicked($event)">
+<agm-map style="z-index: -1"
+         [latitude]="lat" [longitude]="lng" [zoom]="defaultZoom"
+         (centerChange)="onCenterChange($event)">
   <agm-marker [latitude]="marker.lat" [longitude]="marker.lng"></agm-marker>
 </agm-map>
+<img
+  src="http://www.iconsdb.com/icons/preview/soylent-red/map-marker-2-xxl.png"/>
+

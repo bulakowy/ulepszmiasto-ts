@@ -20,6 +20,14 @@ export class MapComponent implements OnInit {
     this.setLocation();
   }
 
+  onMouseOver(infoWindow, gmap) {
+    if (gmap.lastOpen != null) {
+      gmap.lastOpen.close();
+    }
+    gmap.lastOpen = infoWindow;
+    infoWindow.open();
+  }
+
   setLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {

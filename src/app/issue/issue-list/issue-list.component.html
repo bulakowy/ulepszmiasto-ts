@@ -8,14 +8,14 @@
   <div class="row">
     <div class="col col-md-3">
       <div class="list-group">
-        <div *ngFor="let i of issues"
+        <div *ngFor="let i of issues" (click)="bla()"
            class="list-group-item list-group-item-action flex-column align-items-start"
         >
+          <span class="badge badge-{{i.category | slice:0:6}}">{{i.category}}</span>
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{{i.title}}</h5>
             <small>{{i.createdAt | date:'short' }} </small>
           </div>
-          <p class="mb-1">Kategoria: {{i.category}}</p>
         </div>
       </div>
     </div>

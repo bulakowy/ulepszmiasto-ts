@@ -18,10 +18,14 @@ export class IssueListComponent implements OnInit {
               private router: Router) {
     this.issueService.newIssueAdded.subscribe(
       (issue) => {
-        console.log("newIssueAdded caught!!!");
+        console.log('newIssueAdded caught!!!');
         this.issues.push(issue);
       }
     );
+  }
+
+  bla() {
+    throw new Error('xyz');
   }
 
   ngOnInit() {
