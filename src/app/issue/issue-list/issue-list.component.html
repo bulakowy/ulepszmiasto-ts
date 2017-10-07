@@ -6,40 +6,23 @@
 
 <div class="container">
   <div class="row">
-    <div class="col col-xs-6">
-      <h2>Issues</h2>
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Latitude</th>
-            <th>Longitude</th>
-            <th>Category</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Created by</th>
-            <!--<th>Created at</th>-->
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let i of issues">
-            <td>{{i.lat}}</td>
-            <td>{{i.lng}}</td>
-            <td>{{i.category}}</td>
-            <td>{{i.title}}</td>
-            <td>{{i.desc}}</td>
-            <td>{{i.status}}</td>
-            <td>{{i.createdBy}}</td>
-            <!--<td>{{i.createdAt}}</td>-->
-          </tr>
-          </tbody>
-        </table>
+    <div class="col col-md-3">
+      <div class="list-group">
+        <div *ngFor="let i of issues"
+           class="list-group-item list-group-item-action flex-column align-items-start"
+        >
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{i.title}}</h5>
+            <small>{{i.createdAt | date:'short' }} </small>
+          </div>
+          <p class="mb-1">Kategoria: {{i.category}}</p>
+        </div>
       </div>
     </div>
 
-    <div class="col col-xs-6">
-      <app-map></app-map>
+    <div class="col col-md-9">
+      <app-map [issues]="issues" lat="lat" lng="lng"></app-map>
     </div>
   </div>
-</div>
+
+

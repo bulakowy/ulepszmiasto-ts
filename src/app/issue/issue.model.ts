@@ -2,57 +2,10 @@ import { Utils } from '../utils/Utils';
 
 export class Issue {
 
-  lng: number;
-  lat: number;
-  category: string;
-  title: string;
-  desc: string;
-  status: string;
-  createdBy: string;
-  createdAt: any;
-  lastUpdatedAt: any;
-
-  constructor(issueBuilder: IssueBuilder) {
-    this.lng = issueBuilder.lng;
-    this.lat = issueBuilder.lat;
-    this.category = issueBuilder.category;
-    this.title = issueBuilder.title;
-    this.desc = issueBuilder.desc;
-    this.status = issueBuilder.status;
-    this.createdBy = issueBuilder.createdBy;
-    this.createdAt = issueBuilder.createdAt;
-    this.lastUpdatedAt = issueBuilder.lastUpdatedAt;
-  }
-
-  static randomCategory() {
-    return Utils.randomElement(['road', 'sidewalk', 'graffiti']);
-  }
-
-  static randomStatus() {
-    return Utils.randomElement(['new', 'fixed']);
-  }
-
-  static randomIssue() {
-    const builder = new IssueBuilder();
-    builder.lng = 20.987816 + (Math.random() / 20);
-    builder.lat = 52.209371 + (Math.random() / 20);
-    builder.category = Issue.randomCategory();
-    builder.title = Utils.randomString(10, true, false);
-    builder.desc = Utils.randomString(50, true, true);
-    builder.status = Issue.randomStatus();
-    builder.createdBy = Utils.randomString(10, false, false);
-    builder.createdAt = new Date();
-    builder.lastUpdatedAt = new Date();
-
-    return new Issue(builder);
-  }
-}
-
-export class IssueBuilder {
-
+  private _id: string;
   private _lng: number;
   private _lat: number;
-  private _category: any;
+  private _category: string;
   private _title: string;
   private _desc: string;
   private _status: string;
@@ -63,8 +16,12 @@ export class IssueBuilder {
   constructor() {
   }
 
-  build() {
-    return new Issue(this);
+  get id(): string {
+    return this._id;
+  }
+
+  set id(value: string) {
+    this._id = value;
   }
 
   get lng(): number {
@@ -83,11 +40,11 @@ export class IssueBuilder {
     this._lat = value;
   }
 
-  get category(): any {
+  get category(): string {
     return this._category;
   }
 
-  set category(value: any) {
+  set category(value: string) {
     this._category = value;
   }
 
@@ -137,5 +94,28 @@ export class IssueBuilder {
 
   set lastUpdatedAt(value: any) {
     this._lastUpdatedAt = value;
+  }
+
+  static randomCategory() {
+    return Utils.randomElement(['road', 'sidewalk', 'graffiti']);
+  }
+
+  static randomStatus() {
+    return Utils.randomElement(['new', 'fixed']);
+  }
+
+  static randomIssue() {
+    const issue = new Issue();
+    issue.lng = 20.987816 + (Math.random() / 20);
+    issue.lat = 52.209371 + (Math.random() / 20);
+    issue.category = Issue.randomCategory();
+    issue.title = Utils.randomString(10, true, false);
+    issue.desc = Utils.randomString(50, true, true);
+    issue.status = Issue.randomStatus();
+    issue.createdBy = Utils.randomString(10, false, false);
+    issue.createdAt = new Date();
+    issue.lastUpdatedAt = new Date();
+
+    return issue;
   }
 }
