@@ -15,6 +15,11 @@ import { IssueNewMapComponent } from './issue/issue-new/issue-new-map/issue-new-
 import { IssueEditComponent } from './issue/issue-edit/issue-edit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IssueService } from './issue/issue.service';
+import { MainComponent } from './main/main.component';
+import { HelpComponent } from './help/help.component';
+import { AccountComponent } from './account/account.component';
+import { InfoComponent } from './info/info.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,12 @@ import { IssueService } from './issue/issue.service';
     IssueDetailComponent,
     IssueNewComponent,
     IssueNewMapComponent,
-    IssueEditComponent
+    IssueEditComponent,
+    MainComponent,
+    HelpComponent,
+    AccountComponent,
+    InfoComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
