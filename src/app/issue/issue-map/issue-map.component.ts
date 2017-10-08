@@ -30,10 +30,15 @@ export class MapComponent implements OnInit {
 
   setLocation() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.lat = position.coords.latitude;
+          this.lng = position.coords.longitude;
+        },
+        (error) => console.log(error)
+      );
+    } else {
+      console.log('geolocation not supported');
     }
   }
 
