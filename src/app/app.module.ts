@@ -16,7 +16,6 @@ import { IssueEditComponent } from './issue/issue-edit/issue-edit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IssueService } from './issue/issue.service';
 import { MainComponent } from './main/main.component';
-import { HelpComponent } from './help/help.component';
 import { AccountComponent } from './account/account.component';
 import { InfoComponent } from './info/info.component';
 import { ContactComponent } from './contact/contact.component';
@@ -32,7 +31,6 @@ import { ContactComponent } from './contact/contact.component';
     IssueNewMapComponent,
     IssueEditComponent,
     MainComponent,
-    HelpComponent,
     AccountComponent,
     InfoComponent,
     ContactComponent
