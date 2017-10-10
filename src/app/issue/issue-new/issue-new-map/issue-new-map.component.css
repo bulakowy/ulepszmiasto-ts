@@ -16,5 +16,6 @@ img {
 
 .ramka {
   border: 1px black solid;
+  border-left: 2px black solid;
   position:relative;
 }

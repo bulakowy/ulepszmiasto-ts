@@ -47,8 +47,4 @@ export class IssueListComponent implements OnInit {
     }
   }
 
-  onNewIssue() {
-    this.router.navigate(['/new-issue']);
-  }
-
 }

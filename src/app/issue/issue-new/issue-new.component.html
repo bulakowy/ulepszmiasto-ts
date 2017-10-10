@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header">
-    <h4 class="title">Nowy problem</h4>
+    <h1 class="p-sm-4">Nowy problem</h1>
   </div>
   <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="body">
@@ -8,6 +8,7 @@
       <app-issue-new-map (coordinatesChanged)="onCoordinatesChanged($event)"></app-issue-new-map>
       <p></p>
       <div class="row justify-content-center">
+        <input type="file" accept="image/*" capture="camera" />
         <label type="button" class="btn btn-secondary">Dodaj zdjecie
         </label>
       </div>

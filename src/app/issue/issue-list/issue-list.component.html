@@ -1,20 +1,19 @@
-<div class="container p-lg-5">
-  <div class="row justify-content-center">
-    <button class="btn btn-primary btn-lg" (click)="onNewIssue()">Zgłoś problem</button>
-  </div>
-</div>
-
 <div class="container">
+
+  <div class="header">
+    <h1 class="p-sm-4">Lista zgłoszeń</h1>
+  </div>
+
   <div class="row">
     <div class="col col-md-3">
       <div class="list-group">
         <div *ngFor="let i of issues" (click)="bla()"
-           class="list-group-item list-group-item-action flex-column align-items-start"
+             class="list-group-item list-group-item-action flex-column align-items-start"
         >
-          <span class="badge badge-{{i.category | slice:0:6}}">{{i.category}}</span>
+          <span class="badge">{{i.category}}</span>
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{{i.title}}</h5>
-            <small>{{i.createdAt | date:'short' }} </small>
+            <small>{{i.createdAt | date:'short' }}</small>
           </div>
         </div>
       </div>
@@ -24,5 +23,4 @@
       <app-map [issues]="issues" lat="lat" lng="lng"></app-map>
     </div>
   </div>
-
-
+</div>

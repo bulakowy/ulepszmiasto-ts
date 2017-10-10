@@ -14,7 +14,7 @@ const appRoutes: Routes = [
   { path: 'main', component: MainComponent },
   { path: 'info', component: InfoComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'acccount', component: AccountComponent },
+  { path: 'account', component: AccountComponent },
   { path: 'issues', component: IssueListComponent, children: [
     { path: ':id', component: IssueDetailComponent },
     { path: ':id/edit', component: IssueEditComponent },
