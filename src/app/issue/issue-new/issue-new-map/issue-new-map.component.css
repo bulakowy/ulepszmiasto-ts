@@ -5,7 +5,7 @@ agm-map {
 
 img {
   z-index: 1;
-  max-width: 4vw;
+  max-width: 4em;
   position:absolute;
   margin: auto;
   top: 0;
