@@ -8,19 +8,20 @@
       <app-issue-new-map (coordinatesChanged)="onCoordinatesChanged($event)"></app-issue-new-map>
       <p></p>
       <div class="row justify-content-center">
-        <input type="file" accept="image/*" capture="camera" />
-        <label type="button" class="btn btn-secondary">Dodaj zdjecie
-        </label>
+        <div class="col col-xs-12 text-center">
+          <label for="addPhoto" class="btn btn btn-outline-primary">Dodaj zdjęcie</label>
+          <input id="addPhoto" style="width:0; visibility:hidden;" type="file" accept="image/*" capture="camera"/>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label for="selectCategory">Kategoria</label>
-        <select class="form-control" #selectCategory id="selectCategory" (change)="setCategory(selectCategory.value)">
-          <option *ngFor="let category of categories" [value]="category">
-            {{ category }}
-          </option>
-        </select>
-      </div>
+      <!--<div class="form-group">-->
+        <!--<label for="selectCategory">Kategoria</label>-->
+        <!--<select class="form-control" #selectCategory id="selectCategory" (change)="setCategory(selectCategory.value)">-->
+          <!--<option *ngFor="let category of categories" [value]="category">-->
+            <!--{{ category }}-->
+          <!--</option>-->
+        <!--</select>-->
+      <!--</div>-->
 
       <div class="form-group">
         <label for="title">Krótki opis problemu *</label>
@@ -33,7 +34,8 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <button type="submit" [disabled]="!f.valid" class="btn btn-primary btn-lg">Gotowe!</button>
+      <button type="submit" [disabled]="!f.valid" class="btn btn-primary btn-lg mb-3">Gotowe!</button>
     </div>
+
   </form>
 </div>
