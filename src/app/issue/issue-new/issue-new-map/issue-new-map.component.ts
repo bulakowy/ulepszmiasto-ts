@@ -43,7 +43,6 @@ export class IssueNewMapComponent implements OnInit, AfterViewInit {
     this.marker.lat = $event.lat;
     this.marker.lng = $event.lng;
     this.emitCoordinatesChanged();
-    console.log("blablabla");
   }
 
   mapClicked($event) {

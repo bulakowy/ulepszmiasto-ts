@@ -6,31 +6,49 @@
     <div class="body">
       <!-- mapka -->
       <app-issue-new-map (coordinatesChanged)="onCoordinatesChanged($event)"></app-issue-new-map>
-      <p></p>
-      <div class="row justify-content-center">
+
+      <div class="row justify-content-lg-start pl-2 pr-2">
+        <div *ngFor="let image of images; let i = index"
+             class="col col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 pl-2 pr-2">
+          <img src="{{image.url}}" class="rounded img-fluid mt-3">
+          <label class="btn btn-secondary close mt-3 mr-2" aria-label="Close" (click)="onDeleteClick(i)">
+            <span aria-hidden="true">&times;</span>
+          </label>
+        </div>
+      </div>
+
+
+      <div class="row justify-content-center mt-3 mb-2">
         <div class="col col-xs-12 text-center">
-          <label for="addPhoto" class="btn btn btn-outline-primary">Dodaj zdjęcie</label>
-          <input id="addPhoto" style="width:0; visibility:hidden;" type="file" accept="image/*" capture="camera"/>
+          <label for="addPhoto" class="btn btn-outline-primary">Dodaj zdjęcie</label>
+          <input id="addPhoto" #addPhoto style="width:0; visibility:hidden;" type="file" accept="image/*"
+                 capture="camera"
+                 (change)="onChange($event)"/>
         </div>
       </div>
 
       <!--<div class="form-group">-->
-        <!--<label for="selectCategory">Kategoria</label>-->
-        <!--<select class="form-control" #selectCategory id="selectCategory" (change)="setCategory(selectCategory.value)">-->
-          <!--<option *ngFor="let category of categories" [value]="category">-->
-            <!--{{ category }}-->
-          <!--</option>-->
-        <!--</select>-->
+      <!--<label for="selectCategory">Kategoria</label>-->
+      <!--<select class="form-control" #selectCategory id="selectCategory" (change)="setCategory(selectCategory.value)">-->
+      <!--<option *ngFor="let category of categories" [value]="category">-->
+      <!--{{ category }}-->
+      <!--</option>-->
+      <!--</select>-->
       <!--</div>-->
 
       <div class="form-group">
         <label for="title">Krótki opis problemu *</label>
-        <input required [(ngModel)]="issue.title" name="title" type="text" class="form-control" id="title">
+        <input required [(ngModel)]="issue.title" name="title" type="text" class="form-control" id="title"/>
       </div>
 
       <div class="form-group">
-        <label for="desc">Szczegolowy opis problemu</label>
+        <label for="desc">Szczegółowy opis problemu</label>
         <textarea [(ngModel)]="issue.desc" name="desc" id="desc" rows="5" class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="createdBy">Autor</label>
+        <input [(ngModel)]="issue.createdBy" name="createdBy" id="createdBy" class="form-control"/>
       </div>
     </div>
     <div class="row justify-content-center">

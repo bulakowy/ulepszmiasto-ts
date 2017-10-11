@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Issue } from '../issue.model';
 import { NgForm } from '@angular/forms';
 import { IssueService } from '../issue.service';
@@ -11,9 +11,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class IssueNewComponent implements OnInit {
 
+  @ViewChild('addPhoto') addPhotoInput;
+
   categories = ['Droga', 'Sciezka rowerowa', 'Graffiti'];
 
   issue = new Issue();
+
+  images = [{url: 'assets/img/photo.jpg'}];
 
   constructor(private issueService: IssueService,
               private route: ActivatedRoute,
@@ -46,4 +50,21 @@ export class IssueNewComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  onDeleteClick(imageIndex) {
+    this.images.splice(imageIndex, 1);
+  }
+
+  onChange(event) {
+    const fileBrowser = this.addPhotoInput.nativeElement;
+    if (fileBrowser.files && fileBrowser.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = ee => {
+        const target: any = ee.target;
+        this.images.push({url: target.result});
+      };
+
+      reader.readAsDataURL(fileBrowser.files[0]);
+    }
+  }
 }
