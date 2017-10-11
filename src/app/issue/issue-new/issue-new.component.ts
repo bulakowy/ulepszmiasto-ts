@@ -17,7 +17,7 @@ export class IssueNewComponent implements OnInit {
 
   issue = new Issue();
 
-  images = [{url: 'assets/img/photo.jpg'}];
+  images = [];
 
   constructor(private issueService: IssueService,
               private route: ActivatedRoute,
