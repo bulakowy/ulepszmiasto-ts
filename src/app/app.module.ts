@@ -19,6 +19,10 @@ import { MainComponent } from './main/main.component';
 import { AccountComponent } from './account/account.component';
 import { InfoComponent } from './info/info.component';
 import { ContactComponent } from './contact/contact.component';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+import 'firebase/storage';
+import 'firebase/database';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,7 @@ import { ContactComponent } from './contact/contact.component';
     HttpModule,
     AppRoutingModule,
     NgbModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAVHZHByHkwScBEAJmKGUgC0HTJfNVg6PQ'
     })

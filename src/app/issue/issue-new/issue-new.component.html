@@ -34,7 +34,7 @@
       <!--</div>-->
 
       <div class="form-group">
-        <label for="title">Krótki opis problemu *</label>
+        <label for="title">Problem *</label>
         <input required [(ngModel)]="issue.title" name="title" type="text" class="form-control" id="title"/>
       </div>
 
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <button type="submit" [disabled]="!f.valid" class="btn btn-primary btn-lg mb-3">Gotowe!</button>
+      <button type="submit" [disabled]="!f.valid" class="btn btn-primary btn-lg mb-3">Zgłoś!</button>
     </div>
 
   </form>

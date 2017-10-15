@@ -11,7 +11,9 @@ export class Issue {
   private _status: string;
   private _createdBy: string;
   private _createdAt: any;
+
   private _lastUpdatedAt: any;
+  private _images: any[];
 
   constructor() {
   }
@@ -96,26 +98,11 @@ export class Issue {
     this._lastUpdatedAt = value;
   }
 
-  static randomCategory() {
-    return Utils.randomElement(['road', 'sidewalk', 'graffiti']);
+  get images(): any[] {
+    return this._images;
   }
 
-  static randomStatus() {
-    return Utils.randomElement(['new', 'fixed']);
-  }
-
-  static randomIssue() {
-    const issue = new Issue();
-    issue.lng = 20.987816 + (Math.random() / 20);
-    issue.lat = 52.209371 + (Math.random() / 20);
-    issue.category = Issue.randomCategory();
-    issue.title = Utils.randomString(10, true, false);
-    issue.desc = Utils.randomString(50, true, true);
-    issue.status = Issue.randomStatus();
-    issue.createdBy = Utils.randomString(10, false, false);
-    issue.createdAt = new Date();
-    issue.lastUpdatedAt = new Date();
-
-    return issue;
+  set images(value: any[]) {
+    this._images = value;
   }
 }

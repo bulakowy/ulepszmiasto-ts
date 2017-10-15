@@ -42,9 +42,16 @@ export class IssueNewComponent implements OnInit {
     this.issue.createdAt = new Date();
     this.issue.lastUpdatedAt = this.issue.createdAt;
     this.issue.createdBy = 'anonymous';
+    this.issue.images = [];
+
+    let i = 0;
+    for (const img of this.images) {
+      this.issue.images.push({id: i});
+      i++;
+    }
 
     // save issue to db
-    this.issueService.storeIssue(this.issue);
+    this.issueService.storeIssue(this.issue, this.images);
 
     // TODO: display Thank you msg
     this.router.navigate(['/']);
@@ -61,7 +68,7 @@ export class IssueNewComponent implements OnInit {
 
       reader.onload = ee => {
         const target: any = ee.target;
-        this.images.push({url: target.result});
+        this.images.push({url: target.result, file: fileBrowser.files[0]});
       };
 
       reader.readAsDataURL(fileBrowser.files[0]);
