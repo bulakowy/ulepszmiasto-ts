@@ -8,6 +8,8 @@ import { MainComponent } from './main/main.component';
 import { InfoComponent } from './info/info.component';
 import { ContactComponent } from './contact/contact.component';
 import { AccountComponent } from './account/account.component';
+import { IssueNewThankyouComponent } from './issue/issue-new/issue-new-thankyou/issue-new-thankyou.component';
+import { IssueStartComponent } from './issue/issue-start/issue-start.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
@@ -15,11 +17,12 @@ const appRoutes: Routes = [
   { path: 'info', component: InfoComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'account', component: AccountComponent },
-  { path: 'issues', component: IssueListComponent, children: [
-    { path: ':id', component: IssueDetailComponent },
-    { path: ':id/edit', component: IssueEditComponent },
+  { path: 'issue-list', component: IssueListComponent, children: [
+    { path: '', component: IssueStartComponent },
+    { path: ':id', component: IssueDetailComponent }
   ] },
-  { path: 'new-issue', component: IssueNewComponent }
+  { path: 'new-issue', component: IssueNewComponent },
+  { path: 'new-issue-thank-you', component: IssueNewThankyouComponent }
 ];
 
 @NgModule({

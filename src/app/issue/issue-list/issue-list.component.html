@@ -1,26 +1,12 @@
 <div class="container">
 
-  <div class="header">
-    <h1 class="p-4">Lista zgłoszeń</h1>
-  </div>
+  <h1 class="p-3 text-center">Lista zgłoszeń</h1>
 
   <div class="row">
-    <div class="col col-md-3">
-      <div class="list-group">
-        <div *ngFor="let i of issues" (click)="bla()"
-             class="list-group-item list-group-item-action flex-column align-items-start"
-        >
-          <span class="badge">{{i.category}}</span>
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{i.title}}</h5>
-            <small>{{i.createdAt | date:'short' }}</small>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col col-md-9">
+    <div class="col col-12">
       <app-map [issues]="issues" lat="lat" lng="lng"></app-map>
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>
+

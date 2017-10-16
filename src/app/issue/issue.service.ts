@@ -15,6 +15,8 @@ export class IssueService {
   newIssueAdded = new EventEmitter<Issue>();
   issueUpdated = new EventEmitter<Issue>();
 
+  xxx = new EventEmitter<Issue>();
+
   constructor(private http: Http, private firebaseApp: FirebaseApp) {
   }
 
@@ -81,14 +83,14 @@ export class IssueService {
             issue.id = id;
             this.parseResponse(issue, res);
 
-            for (const img of issue.images) {
-              this.firebaseApp.storage().ref()
-                .child('images/' + issue.id + '/' + img.id)
-                .getDownloadURL().then(value => {
-                  issue.images[0]['url'] = value;
-                }
-              );
-            }
+            // for (const img of issue.images) {
+            //   this.firebaseApp.storage().ref()
+            //     .child('images/' + issue.id + '/' + img.id)
+            //     .getDownloadURL().then(value => {
+            //       issue.images[0]['url'] = value;
+            //     }
+            //   );
+            // }
 
             resolve(issue);
           }

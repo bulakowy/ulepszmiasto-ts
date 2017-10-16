@@ -1,3 +1,19 @@
-<p>
-  issue-detail works!
-</p>
+<div *ngIf="issue; then primaryBlock; else elseBlock"></div>
+
+<ng-template #primaryBlock>
+  <div class="container">
+    <p>ID: {{ issue.id }}</p>
+    <p>Zarejestrowano: {{ issue.createdAt }}</p>
+    <div class="mt-3">
+      <h1>{{ issue.title }}</h1>
+    </div>
+    <p class="lead">{{ issue.desc }}</p>
+
+  </div>
+</ng-template>
+
+<ng-template #elseBlock>
+  <div>
+
+  </div>
+</ng-template>

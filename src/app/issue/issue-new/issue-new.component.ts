@@ -54,7 +54,7 @@ export class IssueNewComponent implements OnInit {
     this.issueService.storeIssue(this.issue, this.images);
 
     // TODO: display Thank you msg
-    this.router.navigate(['/']);
+    this.router.navigate(['/new-issue-thank-you']);
   }
 
   onDeleteClick(imageIndex) {

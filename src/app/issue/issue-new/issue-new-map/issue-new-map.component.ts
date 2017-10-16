@@ -1,4 +1,4 @@
-import { Component, EventEmitter, AfterViewInit, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, AfterViewInit, OnInit, Output, Input } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 
 @Component({
@@ -8,8 +8,8 @@ import { AgmCoreModule } from '@agm/core';
 })
 export class IssueNewMapComponent implements OnInit, AfterViewInit {
 
-  lat = 52.2297700;
-  lng = 21.0117800;
+  @Input() lat = 52.2297700;
+  @Input() lng = 21.0117800;
   defaultZoom = 17;
 
   @Output() coordinatesChanged = new EventEmitter<{ lat: number, lng: number }>();

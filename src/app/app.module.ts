@@ -12,6 +12,7 @@ import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueDetailComponent } from './issue/issue-detail/issue-detail.component';
 import { IssueNewComponent } from './issue/issue-new/issue-new.component';
 import { IssueNewMapComponent } from './issue/issue-new/issue-new-map/issue-new-map.component';
+import { IssueNewThankyouComponent } from './issue/issue-new/issue-new-thankyou/issue-new-thankyou.component';
 import { IssueEditComponent } from './issue/issue-edit/issue-edit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IssueService } from './issue/issue.service';
@@ -23,6 +24,8 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import 'firebase/storage';
 import 'firebase/database';
+import { IssueStartComponent } from './issue/issue-start/issue-start.component';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ import 'firebase/database';
     MainComponent,
     AccountComponent,
     InfoComponent,
-    ContactComponent
+    ContactComponent,
+    IssueNewThankyouComponent,
+    IssueStartComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +50,7 @@ import 'firebase/database';
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    Ng4LoadingSpinnerModule,
     NgbModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AgmCoreModule.forRoot({

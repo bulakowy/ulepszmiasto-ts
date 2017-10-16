@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Issue } from '../issue.model';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { IssueService } from '../issue.service';
+import { MapComponent } from '../issue-map/issue-map.component';
 
 @Component({
   selector: 'app-issue-detail',
@@ -7,9 +11,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IssueDetailComponent implements OnInit {
 
-  constructor() { }
+  issue: Issue;
+  id: string;
+
+  constructor(private issueService: IssueService,
+              private route: ActivatedRoute,
+              private router: Router) {
+  }
 
   ngOnInit() {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.id = params['id'];
+          this.issueService.getIssue(this.id)
+            .then(value => {
+              this.issue = value;
+              this.issueService.xxx.emit(this.issue);
+            });
+        }
+      );
   }
 
 }
