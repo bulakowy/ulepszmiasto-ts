@@ -19,6 +19,8 @@ export class IssueNewComponent implements OnInit {
 
   images = [];
 
+  submitted;
+
   constructor(private issueService: IssueService,
               private route: ActivatedRoute,
               private router: Router) {
@@ -39,6 +41,11 @@ export class IssueNewComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    if (!this.issue.title) {
+      this.submitted = 'submitted';
+      return;
+    }
+
     this.issue.createdAt = new Date();
     this.issue.statuses.push({status: 'Open', changed: this.issue.createdAt});
     this.issue.createdBy = 'anonymous';
