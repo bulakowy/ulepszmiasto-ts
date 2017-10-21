@@ -21,13 +21,6 @@ export class IssueService {
   }
 
   storeIssue(issue: Issue, images: any[]) {
-    if (issue.id) {
-      this.updateExisting(issue);
-    }
-    this.createNew(issue, images);
-  }
-
-  private createNew(issue: Issue, images: any[]) {
     this.http.post(this.firebaseUrl + '.json', issue)
       .subscribe(
         (result: Response) => {
@@ -42,14 +35,12 @@ export class IssueService {
       );
   }
 
-  private updateExisting(issue: Issue) {
-
-    this.http.put(this.firebaseUrl + issue.id + '.json', issue)
+  updateExisting(issue: Issue) {
+    this.http.put(this.firebaseUrl + '/' + issue.id + '.json', issue)
       .subscribe(
         (result) => this.issueUpdated.emit(issue),
         (error) => console.log(error)
       );
-
   }
 
   getIssues() {
@@ -82,20 +73,11 @@ export class IssueService {
             const issue = new Issue();
             issue.id = id;
             this.parseResponse(issue, res);
-
-            // for (const img of issue.images) {
-            //   this.firebaseApp.storage().ref()
-            //     .child('images/' + issue.id + '/' + img.id)
-            //     .getDownloadURL().then(value => {
-            //       issue.images[0]['url'] = value;
-            //     }
-            //   );
-            // }
-
             resolve(issue);
           }
         ).catch(reason => console.log(reason));
     });
+
     return promise;
   }
 

@@ -40,9 +40,8 @@ export class IssueNewComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.issue.createdAt = new Date();
-    this.issue.lastUpdatedAt = this.issue.createdAt;
+    this.issue.statuses.push({status: 'Open', changed: this.issue.createdAt});
     this.issue.createdBy = 'anonymous';
-    this.issue.images = [];
 
     let i = 0;
     for (const img of this.images) {

@@ -34,7 +34,6 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.clickedIssue);
     this.setLocation();
   }
 

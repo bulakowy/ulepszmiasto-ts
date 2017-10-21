@@ -12,8 +12,11 @@ export class Issue {
   private _createdBy: string;
   private _createdAt: any;
 
-  private _lastUpdatedAt: any;
-  private _images: any[];
+  private _statuses: { status: string, changed: string }[] = [];
+
+  private _images: any[] = [];
+
+  private _comments: { comment: string, author: string, date: string }[] = [];
 
   constructor() {
   }
@@ -90,19 +93,16 @@ export class Issue {
     this._createdAt = value;
   }
 
-  get lastUpdatedAt(): any {
-    return this._lastUpdatedAt;
-  }
-
-  set lastUpdatedAt(value: any) {
-    this._lastUpdatedAt = value;
+  get statuses(): { status: string; changed: string }[] {
+    return this._statuses;
   }
 
   get images(): any[] {
     return this._images;
   }
 
-  set images(value: any[]) {
-    this._images = value;
+  get comments(): { comment: string; author: string; date: any }[] {
+    return this._comments;
   }
+
 }

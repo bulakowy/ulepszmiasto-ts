@@ -26,6 +26,7 @@ import 'firebase/storage';
 import 'firebase/database';
 import { IssueStartComponent } from './issue/issue-start/issue-start.component';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
     InfoComponent,
     ContactComponent,
     IssueNewThankyouComponent,
-    IssueStartComponent
+    IssueStartComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
