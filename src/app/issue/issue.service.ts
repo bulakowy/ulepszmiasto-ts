@@ -15,7 +15,7 @@ export class IssueService {
   newIssueAdded = new EventEmitter<Issue>();
   issueUpdated = new EventEmitter<Issue>();
 
-  xxx = new EventEmitter<Issue>();
+  issueDetailsLoaded = new EventEmitter<Issue>();
 
   constructor(private http: Http, private firebaseApp: FirebaseApp) {
   }

@@ -3,31 +3,36 @@
 <ng-template #primaryBlock>
   <!--<div class="container">-->
 
-  <div class="row d-flex w-100 justify-content-between mt-3 mb-2 ml-0">
-    <div class="col col-12 m-0 p-0">
+  <div class="row d-flex w-100 justify-content-between">
+    <div class="col col-8">
+      <h3 id="{{ issue.id }}" class="mb-2">{{ issue.title }}</h3>
+    </div>
+    <div class="col col-4 m-0 p-0 mb-1" >
       <div *ngIf="fixed; else notfixed;">
-        <span class="badge badge-success">Rozwiązany</span>
+        <span class="badge badge-success float-right mb-1">Rozwiązany</span>
       </div>
       <ng-template #notfixed>
-        <span class="badge badge-danger">Nierozwiązany</span>
+        <span class="badge badge-danger float-right mb-1">Nierozwiązany</span>
       </ng-template>
-    </div>
-    <!--<h6 class="mb-1">Status: {{ issue.statuses[issue.statuses.length - 1].status }}</h6>-->
-    <div class="col col-12 m-0 p-0">
-      <small class="date-info">Dodany: {{ issue.createdAt | date:'d.M.y' }} o godz. {{ issue.createdAt |
+      <small class="date-info float-right mb-1 text-right">Dodany: {{ issue.createdAt | date:'d.M.y' }} o godz. {{ issue.createdAt |
         date:'h:mm' }}
       </small>
     </div>
+    <!--<h6 class="mb-1">Status: {{ issue.statuses[issue.statuses.length - 1].status }}</h6>-->
+    <!--<div class="col col-12 m-0 p-0">-->
+
+    <!--</div>-->
   </div>
 
   <!--<div class="mt-3">-->
-  <h3 id="{{ issue.id }}" class="mb-2">{{ issue.title }}</h3>
-  <!--</div>-->
-  <p class="lead desc">{{ issue.desc }}</p>
 
-  <div class="row justify-content-lg-start pl-2 pr-2 pb-2 pt-0">
+  <!--</div>-->
+
+  <p *ngIf="issue.desc" class="desc">{{ issue.desc }}</p>
+
+  <div *ngIf="issue.images.length > 0" class="row justify-content-lg-start pl-3 pr-3 pb-2 pt-0">
     <div *ngFor="let i of issue.images; let i = index"
-         class="col col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 pl-2 pr-2 pt-0 mb-1">
+         class="col col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 p-1">
       <img src="{{i.url}}" class="rounded img-fluid">
     </div>
   </div>
@@ -48,14 +53,16 @@
   </div>
 
   <div class="list-group mb-3">
-    <h4 class="mt-3 mb-3">Komentarze</h4>
-    <div *ngFor="let i of issue.comments; let i = index"
-         class="list-group-item flex-column align-items-start">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{ i.author }}</h5>
-        <small>{{ i.date | date:'d.M.y' }} o godz. {{ i.date | date:'h:mm' }}</small>
+    <h5 class="mt-3">Komentarze</h5>
+    <div *ngIf="issue.comments.length > 0">
+      <div *ngFor="let i of issue.comments; let i = index"
+           class="list-group-item flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h6 class="mb-1">{{ i.author }}</h6>
+          <small>{{ i.date | date:'d.M.y' }} o godz. {{ i.date | date:'h:mm' }}</small>
+        </div>
+        <p class="mb-1">{{ i.comment }}</p>
       </div>
-      <p class="mb-1">{{ i.comment }}</p>
     </div>
   </div>
 
@@ -71,11 +78,13 @@
         <div class="form-inline">
           <div class="form-group">
             <label class="mr-2" for="commentAuthor">Autor</label>
-            <input type="text" [(ngModel)]="commentAuthor" name="commentAuthor" id="commentAuthor"
-                   class="form-control"/>
+            <input class="form-control mr-2" type="text" [(ngModel)]="commentAuthor" name="commentAuthor"
+                   id="commentAuthor"/>
           </div>
-          <button class="btn btn-sm btn-primary ml-3" (click)="onSubmitComment()">Dodaj</button>
-          <button class="btn btn-sm btn-danger ml-3" (click)="onCancelComment()">Anuluj</button>
+          <div class="form-group">
+            <button class="btn btn-sm btn-primary" (click)="onSubmitComment()">Dodaj</button>
+            <button class="btn btn-sm btn-danger ml-3" (click)="onCancelComment()">Anuluj</button>
+          </div>
         </div>
       </div>
     </div>

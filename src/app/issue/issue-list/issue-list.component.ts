@@ -26,10 +26,6 @@ export class IssueListComponent implements OnInit {
     );
   }
 
-  bla() {
-    throw new Error('xyz');
-  }
-
   ngOnInit() {
     this.issueService.getIssues().subscribe(
       (response) => this.parseResponse(response),

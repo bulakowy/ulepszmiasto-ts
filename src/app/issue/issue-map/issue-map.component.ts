@@ -26,9 +26,11 @@ export class MapComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private issueService: IssueService) {
-    this.issueService.xxx.subscribe(
+    this.issueService.issueDetailsLoaded.subscribe(
       (issue) => {
-        this.onClick(issue);
+        this.lat = issue.lat;
+        this.lng = issue.lng;
+        this.highlightIssue(issue);
       }
     );
   }
@@ -46,6 +48,11 @@ export class MapComponent implements OnInit {
   }
 
   onClick(issue) {
+    this.highlightIssue(issue);
+    this.router.navigate([issue.id, {loadedFromMap: true}], {relativeTo: this.route});
+  }
+
+  highlightIssue(issue) {
     if (this.clickedIssue) {
       this.clickedIssue['icon'] = MapComponent.defaultIconUrl;
     }
@@ -55,7 +62,6 @@ export class MapComponent implements OnInit {
         this.clickedIssue['icon'] = MapComponent.focusedIconUrl;
       }
     }
-    this.router.navigate([issue.id], {relativeTo: this.route});
   }
 
   setLocation() {

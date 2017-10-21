@@ -1,4 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  position: relative;
+  /*height: 100%;*/
+  height: 100%;
+}
+
+body {
+  /*background-image: url("assets/img/pin.png");*/
+  /*background-color: #fafafa;*/
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 30px; /* Margin bottom by footer height */
+}
+
+.background-image {
+  position: fixed;
+  /*left: 0;*/
+  /*right: 0;*/
+  /*top: 0;*/
+  z-index: -1;
+
+  height: 100%;
+  width: 100%;
+
+  display: block;
+  /*background-image: url('http://static.prsa.pl/images/8831104c-5e3a-468a-9ebb-e279490a7349.jpg');*/
+  background-color: cornflowerblue;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100%;
+
+  /*-webkit-filter: blur(5px);*/
+  /*-moz-filter: blur(5px);*/
+  /*-o-filter: blur(5px);*/
+  /*-ms-filter: blur(5px);*/
+  /*filter: blur(5px) opacity(50%);*/
+  filter: opacity(10%);
+}
+
 .page-title h1 {
   display: inline-block;
   margin: 1rem 0 1rem 0;
@@ -17,5 +55,8 @@
 }
 
 .container {
-  background-color: #fafafa;
+  margin: 0 auto;
+  width: 80%;
+  /*min-height: 100%;*/
+  height: 100%;
 }

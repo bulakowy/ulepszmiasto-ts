@@ -61,11 +61,14 @@ export class IssueDetailComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.id = params['id'];
+          const loadedFromMap = params['loadedFromMap'];
           this.issueService.getIssue(this.id)
             .then(value => {
               this.issue = value;
               this.fixed = this.issue.statuses[this.issue.statuses.length - 1].status === 'Fixed';
-              this.issueService.xxx.emit(this.issue);
+              if (!loadedFromMap) {
+                this.issueService.issueDetailsLoaded.emit(this.issue);
+              }
             });
         }
       );

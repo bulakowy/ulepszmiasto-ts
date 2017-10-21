@@ -1,11 +1,12 @@
 agm-map {
-  height: 50vh;
+  height: 82vh;
   z-index: 0;
 }
 
 .map-border {
   border: 1px black solid;
   position:relative;
+  padding-bottom: 0;
 }
 
 .card {
