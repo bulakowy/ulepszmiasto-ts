@@ -83,7 +83,7 @@ body {
 }
 
 agm-map {
-  height: 50vh;
+  height: 80vw;
   z-index: 0;
 }
 
