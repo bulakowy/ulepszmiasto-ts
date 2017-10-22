@@ -11,7 +11,11 @@
   /*font-size: 1rem;*/
   max-height: 15rem;
   overflow-y: auto;
-  background: #FFF;
-  padding: 5px;
-  border: 1px solid rgba(0,0,0,.125);
+  /*background: #FFF;*/
+  /*padding: 5px;*/
+  /*border: 1px solid rgba(0,0,0,.125);*/
+}
+
+.btn {
+  border-radius: 10px;
 }

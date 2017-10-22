@@ -1,8 +1,10 @@
-<div class="map-border">
-  <agm-map style="z-index: -1"
-           [latitude]="lat" [longitude]="lng" [zoom]="defaultZoom"
-           [gestureHandling]="'greedy'"
-           (centerChange)="onCenterChange($event)">
-  </agm-map>
-  <img src="assets/img/pin.png"/>
+<div class="map-border mb-3">
+  <div class="map">
+    <agm-map style="z-index: -1"
+             [latitude]="lat" [longitude]="lng" [zoom]="defaultZoom"
+             [gestureHandling]="'greedy'"
+             (centerChange)="onCenterChange($event)">
+    </agm-map>
+    <img src="assets/img/pin.png"/>
+  </div>
 </div>

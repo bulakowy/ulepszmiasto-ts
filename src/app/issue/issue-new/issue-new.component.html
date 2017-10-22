@@ -4,61 +4,80 @@
     <h1>Zgłoś problem</h1>
   </div>
 
-  <form (ngSubmit)="onSubmit(f)"
-        (keydown.enter)="$event.preventDefault()"
-        #f="ngForm">
-    <div class="body">
-      <!-- mapka -->
+  <div class="row">
+    <!-- mapka -->
+    <div class="col col-12 col-md-6 mb-3">
       <app-issue-new-map (coordinatesChanged)="onCoordinatesChanged($event)"></app-issue-new-map>
-
-      <div class="row justify-content-lg-start pl-2 pr-2">
-        <div *ngFor="let image of images; let i = index"
-             class="col col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 pl-2 pr-2">
-          <img src="{{image.url}}" class="rounded img-fluid mt-3">
-          <label class="btn btn-secondary close mt-3 mr-2" aria-label="Close" (click)="onDeleteClick(i)">
-            <span aria-hidden="true">&times;</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="row justify-content-center mt-3 mb-2">
-        <div class="col col-xs-12 text-center">
-          <label for="addPhoto" class="btn btn-outline-primary">Dodaj zdjęcie</label>
-          <input id="addPhoto" #addPhoto style="width:0; visibility:hidden;" type="file" accept="image/*"
-                 capture="camera"
-                 (change)="onChange($event)"/>
-        </div>
-      </div>
-
-      <!--<div class="form-group">-->
-      <!--<label for="selectCategory">Kategoria</label>-->
-      <!--<select class="form-control" #selectCategory id="selectCategory" (change)="setCategory(selectCategory.value)">-->
-      <!--<option *ngFor="let category of categories" [value]="category">-->
-      <!--{{ category }}-->
-      <!--</option>-->
-      <!--</select>-->
-      <!--</div>-->
-
-      <div class="form-group">
-        <label for="title">Problem <span class="text-danger">*</span></label>
-        <input [ngClass]="submitted" type="text" required [(ngModel)]="issue.title" name="title" class="form-control"
-               id="title"/>
-      </div>
-
-      <div class="form-group">
-        <label for="desc">Szczegółowy opis problemu</label>
-        <textarea [(ngModel)]="issue.desc" name="desc" id="desc" rows="5" class="form-control"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="createdBy">Email (jeśli chcesz otrzymywać powiadomienia o swoim zgłoszeniu)</label>
-        <input type="text" [(ngModel)]="issue.createdBy" name="createdBy" id="createdBy" class="form-control"/>
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      <button type="submit" class="btn btn-primary btn-lg mb-3">Zgłoś!</button>
     </div>
 
-  </form>
+    <div class="col col-12 col-md-6">
+
+      <form class="card p-3"
+            (ngSubmit)="onSubmit(f)"
+            (keydown.enter)="$event.preventDefault()"
+            #f="ngForm">
+
+        <!--<div class="form-group">-->
+        <!--<label for="selectCategory">Kategoria</label>-->
+        <!--<select class="form-control" #selectCategory id="selectCategory" (change)="setCategory(selectCategory.value)">-->
+        <!--<option *ngFor="let category of categories" [value]="category">-->
+        <!--{{ category }}-->
+        <!--</option>-->
+        <!--</select>-->
+        <!--</div>-->
+
+        <div class="form-group">
+          <label class="form-control-label" for="title">Problem <span class="text-danger">*</span></label>
+          <input
+            class="form-control"
+            [ngClass]="submitted"
+            [(ngModel)]="issue.title"
+            type="text"
+            required
+            name="title"
+            id="title"
+            #title="ngModel"
+            aria-describedby="titleHelpBlock">
+          <!--<span id="titleHelpBlock" class="form-text text-muted" *ngIf="!title.valid && submitted === 'submitted'">-->
+            <!--Pole wymagane-->
+          <!--</span>-->
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="desc">Szczegółowy opis problemu</label>
+          <textarea [(ngModel)]="issue.desc" name="desc" id="desc" rows="5" class="form-control"></textarea>
+        </div>
+
+        <div class="row justify-content-lg-start pl-2 pr-2">
+          <div *ngFor="let image of images; let i = index"
+               class="col col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 pl-2 pr-2">
+            <img src="{{image.url}}" class="rounded img-fluid mt-3">
+            <label class="btn btn-secondary close mt-3 mr-2" aria-label="Close" (click)="onDeleteClick(i)">
+              <span aria-hidden="true">&times;</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="row justify-content-center mt-1 mb-2">
+          <div class="col col-xs-12 text-center">
+            <label for="addPhoto" class="btn btn-outline-primary">Dodaj zdjęcie</label>
+            <input id="addPhoto" #addPhoto style="width:0; visibility:hidden;" type="file" accept="image/*"
+                   capture="camera"
+                   (change)="onChange($event)"/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="createdBy">Email (jeśli chcesz otrzymywać powiadomienia o swoim zgłoszeniu)</label>
+          <input type="text" [(ngModel)]="issue.createdBy" name="createdBy" id="createdBy" class="form-control"/>
+        </div>
+        <!--</div>-->
+        <div class="row justify-content-center">
+          <button type="submit" class="btn btn-primary btn-lg">Zgłoś!</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
 
 </div>
