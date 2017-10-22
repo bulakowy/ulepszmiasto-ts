@@ -5,21 +5,29 @@
 
   <div class="card p-3">
 
-    <div class="row d-flex w-100 justify-content-between">
-      <div class="col col-8">
+    <div class="row d-flex w-100 justify-content-between m-0">
+      <div class="col pl-0">
         <h3 id="{{ issue.id }}" class="mb-3">{{ issue.title }}</h3>
       </div>
-      <div class="col col-4 m-0 p-0 mb-1">
-        <div *ngIf="fixed; else notfixed;">
-          <span class="badge badge-success float-right mt-1 mb-1">Rozwiązany</span>
+      <div class="col-auto m-0 p-0 mb-1">
+        <div class="row">
+          <div class="col">
+            <div *ngIf="fixed; else notfixed;">
+              <span class="badge badge-success float-right mt-1 mb-1">Rozwiązany</span>
+            </div>
+            <ng-template #notfixed>
+              <span class="badge badge-danger float-right mt-1 mb-1">Nierozwiązany</span>
+            </ng-template>
+          </div>
         </div>
-        <ng-template #notfixed>
-          <span class="badge badge-danger float-right mt-1 mb-1">Nierozwiązany</span>
-        </ng-template>
-        <small class="date-info float-right mb-1 text-right">Dodany: {{ issue.createdAt | date:'d.M.y' }} o godz. {{
-          issue.createdAt |
-          date:'h:mm' }}
-        </small>
+        <div class="row">
+          <div class="col">
+            <small class="date-info float-right mb-1 text-right">Dodany {{ issue.createdAt | date:'d.M.y' }} o {{
+              issue.createdAt |
+              date:'h:mm' }}
+            </small>
+          </div>
+        </div>
       </div>
       <!--<h6 class="mb-1">Status: {{ issue.statuses[issue.statuses.length - 1].status }}</h6>-->
       <!--<div class="col col-12 m-0 p-0">-->
