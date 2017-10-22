@@ -12,7 +12,11 @@
   border-color: dodgerblue;
 }
 
-input.submitted.ng-invalid {
+.issue-title.submitted.ng-invalid {
+  border: 1px solid #f00;
+}
+
+.issue-email.submitted.ng-invalid.ng-dirty {
   border: 1px solid #f00;
 }
 

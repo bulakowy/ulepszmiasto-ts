@@ -27,6 +27,7 @@ import 'firebase/database';
 import { IssueStartComponent } from './issue/issue-start/issue-start.component';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { FooterComponent } from './footer/footer.component';
+import { Ng2ImgToolsModule } from 'ng2-img-tools';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { FooterComponent } from './footer/footer.component';
   ],
   imports: [
     BrowserModule,
+    Ng2ImgToolsModule,
     CommonModule,
     FormsModule,
     HttpModule,

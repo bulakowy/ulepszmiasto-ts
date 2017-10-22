@@ -1,1 +1,16 @@
+.info-window {
+  width: 20rem;
+  max-height: 20rem;
+}
 
+.card-title {
+  font-weight: 600;
+  font-size: large;
+  padding-right: 10px;
+}
+
+.card-title:after {
+  /*position: absolute; !* Prevent underline of arrow *!*/
+  /*padding-left:2px; !* Add a little space between text and arrow *!*/
+  content: " \00bb"; /* Unicode hex for &raquo; */
+}

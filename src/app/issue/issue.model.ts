@@ -5,10 +5,8 @@ export class Issue {
   private _id: string;
   private _lng: number;
   private _lat: number;
-  private _category: string;
   private _title: string;
   private _desc: string;
-  private _status: string;
   private _createdBy: string;
   private _createdAt: any;
 
@@ -45,14 +43,6 @@ export class Issue {
     this._lat = value;
   }
 
-  get category(): string {
-    return this._category;
-  }
-
-  set category(value: string) {
-    this._category = value;
-  }
-
   get title(): string {
     return this._title;
   }
@@ -67,14 +57,6 @@ export class Issue {
 
   set desc(value: string) {
     this._desc = value;
-  }
-
-  get status(): string {
-    return this._status;
-  }
-
-  set status(value: string) {
-    this._status = value;
   }
 
   get createdBy(): string {

@@ -44,6 +44,7 @@ export class IssueListComponent implements OnInit {
         this.issues.push(i);
       }
     }
+    this.issueService.issuesReady.emit();
   }
 
 }

@@ -13,8 +13,6 @@ export class IssueNewComponent implements OnInit {
 
   @ViewChild('addPhoto') addPhotoInput;
 
-  categories = ['Droga', 'Sciezka rowerowa', 'Graffiti'];
-
   issue = new Issue();
 
   images = [];
@@ -24,12 +22,6 @@ export class IssueNewComponent implements OnInit {
   constructor(private issueService: IssueService,
               private route: ActivatedRoute,
               private router: Router) {
-    this.issue.status = 'New';
-    this.issue.category = this.categories[0];
-  }
-
-  setCategory(value) {
-    this.issue.category = value;
   }
 
   ngOnInit() {
@@ -67,7 +59,7 @@ export class IssueNewComponent implements OnInit {
     this.images.splice(imageIndex, 1);
   }
 
-  onChange(event) {
+  onChange() {
     const fileBrowser = this.addPhotoInput.nativeElement;
     if (fileBrowser.files && fileBrowser.files[0]) {
       const reader = new FileReader();
