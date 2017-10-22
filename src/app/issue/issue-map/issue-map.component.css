@@ -14,3 +14,7 @@
   /*padding-left:2px; !* Add a little space between text and arrow *!*/
   content: " \00bb"; /* Unicode hex for &raquo; */
 }
+
+.card-text {
+  display: none;
+}

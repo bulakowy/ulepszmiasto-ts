@@ -7,20 +7,23 @@
       <agm-marker *ngFor="let i of issues"
                   [latitude]="i.lat" [longitude]="i.lng"
                   [iconUrl]="i.icon"
-                  (mouseOver)="onMouseOver(infoWindow, gmap)"
+
                   (markerClick)="onClick(gmap, i)">
-        <agm-info-window [disableAutoPan]="false" #infoWindow>
-          <div class="info-window">
-            <div class="card-block p-1">
-              <a href="#" class="card-title">{{i.title}} </a>
-              <p class="card-text mt-1">{{i.desc}}</p>
-            </div>
-          </div>
-        </agm-info-window>
+
       </agm-marker>
     </agm-map>
   </div>
 </div>
+
+<!--(mouseOver)="onMouseOver(infoWindow, gmap)"-->
+<!--<agm-info-window [disableAutoPan]="false" #infoWindow>-->
+<!--<div class="info-window">-->
+<!--<div class="card-block p-1">-->
+<!--<a href="#" class="card-title">{{i.title}} </a>-->
+<!--<p class="card-text mt-1">{{i.desc}}</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--</agm-info-window>-->
 
 <!--<div>-->
 <!--<a (click)="onClickInfoView({id:m.id})" class="btn btn-attention pull-right">Daje <i-->
