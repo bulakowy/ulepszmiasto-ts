@@ -14,32 +14,33 @@ body {
 
 .background-image {
   position: fixed;
-  /*left: 0;*/
-  /*right: 0;*/
-  /*top: 0;*/
+  left: 0;
+  right: 0;
+  top: 0;
   z-index: -1;
 
   height: 100%;
   width: 100%;
 
   display: block;
-  background-image: url('http://static.prsa.pl/images/8831104c-5e3a-468a-9ebb-e279490a7349.jpg');
-  /*background-color: #F0F4FD;*/
-  /*background: -webkit-linear-gradient(left top, #F0F4FD, white); !* For Safari 5.1 to 6.0 *!*/
-  /*background: -o-linear-gradient(bottom right, #F0F4FD, white); !* For Opera 11.1 to 12.0 *!*/
-  /*background: -moz-linear-gradient(bottom right, #F0F4FD, white); !* For Firefox 3.6 to 15 *!*/
-  /*background: linear-gradient(to bottom right, #F0F4FD, white); !* Standard syntax *!*/
+  /*background-image: url('http://static.prsa.pl/images/8831104c-5e3a-468a-9ebb-e279490a7349.jpg');*/
 
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100%;
+  background-color: #F0F4FD;
+  background: -webkit-linear-gradient(left top, #F0F4FD, white); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #F0F4FD, white); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #F0F4FD, white); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #F0F4FD, white); /* Standard syntax */
 
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px) opacity(50%);
-  filter: opacity(10%);
+  /*background-repeat: no-repeat;*/
+  /*background-attachment: fixed;*/
+  /*background-size: 100%;*/
+
+  /*-webkit-filter: blur(5px);*/
+  /*-moz-filter: blur(5px);*/
+  /*-o-filter: blur(5px);*/
+  /*-ms-filter: blur(5px);*/
+  /*filter: blur(5px) opacity(50%);*/
+  /*filter: opacity(10%);*/
 }
 
 .page-title h1 {
