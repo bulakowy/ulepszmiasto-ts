@@ -3,6 +3,7 @@ import { Issue } from '../issue.model';
 import { NgForm } from '@angular/forms';
 import { IssueService } from '../issue.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Ng2ImgToolsService } from 'ng2-img-tools';
 
 @Component({
   selector: 'app-issue-new',
@@ -21,7 +22,8 @@ export class IssueNewComponent implements OnInit {
 
   constructor(private issueService: IssueService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private ng2ImgToolsService: Ng2ImgToolsService) {
   }
 
   ngOnInit() {
@@ -61,12 +63,19 @@ export class IssueNewComponent implements OnInit {
 
   onChange() {
     const fileBrowser = this.addPhotoInput.nativeElement;
+
     if (fileBrowser.files && fileBrowser.files[0]) {
       const reader = new FileReader();
 
-      reader.onload = ee => {
-        const target: any = ee.target;
-        this.images.push({url: target.result, file: fileBrowser.files[0]});
+      reader.onload = res => {
+        const target: any = res.target;
+
+        this.ng2ImgToolsService.compress([fileBrowser.files[0]], 0.1).subscribe(result => {
+          this.images.push({url: target.result, file: result});
+        }, error => {
+          console.log(error);
+          this.images.push({url: target.result, file: fileBrowser.files[0]});
+        });
       };
 
       reader.readAsDataURL(fileBrowser.files[0]);

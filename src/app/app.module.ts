@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
@@ -25,7 +25,6 @@ import { environment } from '../environments/environment';
 import 'firebase/storage';
 import 'firebase/database';
 import { IssueStartComponent } from './issue/issue-start/issue-start.component';
-import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { FooterComponent } from './footer/footer.component';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
 
@@ -45,16 +44,16 @@ import { Ng2ImgToolsModule } from 'ng2-img-tools';
     ContactComponent,
     IssueNewThankyouComponent,
     IssueStartComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     Ng2ImgToolsModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
-    Ng4LoadingSpinnerModule,
     NgbModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AgmCoreModule.forRoot({

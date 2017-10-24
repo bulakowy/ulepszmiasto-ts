@@ -7,11 +7,18 @@ import { UUID } from 'angular2-uuid';
 import * as firebase from 'firebase';
 import UploadTaskSnapshot = firebase.storage.UploadTaskSnapshot;
 import { Ng2ImgToolsService } from 'ng2-img-tools';
+import { MapComponent } from './issue-map/issue-map.component';
+import 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+import { Const } from './const';
 
 @Injectable()
 export class IssueService {
 
   firebaseUrl = 'https://ulepszmiasto-ng.firebaseio.com/data';
+
+  private _issuesMap = {};
 
   newIssueAdded = new EventEmitter<Issue>();
   issueUpdated = new EventEmitter<Issue>();
@@ -22,6 +29,19 @@ export class IssueService {
   constructor(private http: Http,
               private firebaseApp: FirebaseApp,
               private ng2ImgToolsService: Ng2ImgToolsService) {
+    this.newIssueAdded.subscribe(
+      (issue) => {
+        this.issuesMap[issue.id] = issue;
+      }
+    );
+  }
+
+  get issuesMap() {
+    return this._issuesMap;
+  }
+
+  get issues(): any[] {
+    return Object.values(this._issuesMap);
   }
 
   storeIssue(issue: Issue, images: any[]) {
@@ -48,20 +68,26 @@ export class IssueService {
   }
 
   getIssues() {
-    return this.http.get(this.firebaseUrl + '.json');
+    return this.http.get(this.firebaseUrl + '.json')
+      .map((response: Response) => {
+        const firebaseResponse = response.json();
+        for (const p in firebaseResponse) {
+          if (firebaseResponse.hasOwnProperty(p)) {
+            const i = new Issue();
+            Object.assign(i, firebaseResponse[p]);
+            i.id = p;
+            i['icon'] = Const.DEFAULT_ICON_URL;
+            this._issuesMap[i.id] = i;
+          }
+        }
+        return this.issues;
+      });
   }
 
   uploadImages(images: any[], issue: Issue, idx: number) {
     for (const img of images) {
-
       const idxCopy = idx;
-      this.ng2ImgToolsService.compress([img.file], 0.1).subscribe(result => {
-        this.storeImageInFirebase(issue, idxCopy, result);
-      }, error => {
-        console.log(error);
-        this.storeImageInFirebase(issue, idxCopy, img.file);
-      });
-
+      this.storeImageInFirebase(issue, idxCopy, img.file);
       idx++;
     }
   }
@@ -73,38 +99,24 @@ export class IssueService {
         this.firebaseApp.database().ref()
           .child('data/' + issue.id + '/_images/' + idx)
           .update({id: idx, url: a.metadata.downloadURLs[0]});
-        console.log('img uploaded');
       }
     );
   }
 
-  getIssue(id: string): Promise<Issue> {
+  getIssue(id: string): Observable<any> {
 
-    const promise = new Promise<Issue>((resolve, reject) => {
-
-      this.http.get(this.firebaseUrl + '/' + id + '.json')
-        .toPromise()
-        .then(
-          res => { // Success
-            const issue = new Issue();
-            issue.id = id;
-            this.parseResponse(issue, res);
-            resolve(issue);
-          }
-        ).catch(reason => console.log(reason));
-    });
-
-    return promise;
-  }
-
-  parseResponse(issue: Issue, response: Response) {
-    const firebaseResponse = JSON.parse(response.text());
-
-    for (const p in firebaseResponse) {
-      if (firebaseResponse.hasOwnProperty(p)) {
-        issue[p] = firebaseResponse[p];
-      }
+    if (this.issuesMap && this.issuesMap[id]) {
+      return Observable.create((observer: Observer<Issue>) => {
+        observer.next(this.issuesMap[id]);
+      });
     }
+
+    return this.http.get(this.firebaseUrl + '/' + id + '.json')
+      .map((res: Response) => {
+        const i = new Issue();
+        Object.assign(i, res.json());
+        return i;
+      });
   }
 
 }

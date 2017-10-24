@@ -6,6 +6,7 @@ import { Issue } from '../issue.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IssueService } from '../issue.service';
 import { isUndefined } from 'util';
+import { Const } from '../const';
 
 @Component({
   selector: 'app-map',
@@ -13,9 +14,6 @@ import { isUndefined } from 'util';
   styleUrls: ['./issue-map.component.css']
 })
 export class MapComponent implements OnInit {
-
-  static defaultIconUrl = 'assets/img/default-marker.png';
-  static focusedIconUrl = 'assets/img/clicked-marker.png';
 
   zoom = 16;
   lat = 52.22977;
@@ -32,11 +30,9 @@ export class MapComponent implements OnInit {
               private issueService: IssueService) {
     this.issueService.issueDetailsLoaded.subscribe(
       (issue) => {
-        console.log('issueDetailsLoaded');
         this.lat = issue.lat;
         this.lng = issue.lng;
         this.properlyCentered = true;
-        console.log('highlight from hell');
         this.highlightIssue(issue);
       }
     );
@@ -45,13 +41,11 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.setLocation();
     this.issueService.issuesReady.subscribe(() => {
-      console.log('issues ready');
       this.issuesMap = {};
       for (const i of this.issues) {
         this.issuesMap[i.id] = i;
       }
 
-      console.log('issues ready : this.clickedIssue = ' + this.clickedIssue);
       if (this.clickedIssue) {
         this.highlightIssue(this.clickedIssue);
       }
@@ -78,18 +72,13 @@ export class MapComponent implements OnInit {
 
   highlightIssue(issue) {
 
-    console.log('IIIIIIIIIIIIisue: ' + issue);
-
     if (this.clickedIssue) {
-      this.clickedIssue['icon'] = MapComponent.defaultIconUrl;
+      this.clickedIssue['icon'] = Const.DEFAULT_ICON_URL;
     }
-    console.log('issueMap : ' + this.issuesMap);
     if (this.issuesMap && this.issuesMap[issue.id]) {
-      console.log('highlightIssue');
-      console.log('issue : ' + issue.id);
       const newClicked = this.issuesMap[issue.id];
       this.clickedIssue = newClicked;
-      this.clickedIssue['icon'] = MapComponent.focusedIconUrl;
+      this.clickedIssue['icon'] = Const.FOCUSED_ICON_URL;
     } else {
       this.clickedIssue = issue;
     }
@@ -99,7 +88,6 @@ export class MapComponent implements OnInit {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log('getCurrentPosition');
           if (!this.properlyCentered) {
             this.lat = position.coords.latitude;
             this.lng = position.coords.longitude;

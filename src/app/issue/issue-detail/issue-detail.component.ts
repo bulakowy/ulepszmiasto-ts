@@ -62,8 +62,13 @@ export class IssueDetailComponent implements OnInit {
         (params: Params) => {
           this.id = params['id'];
           const loadedFromMap = params['loadedFromMap'];
-          this.issueService.getIssue(this.id)
-            .then(value => {
+          const issue2 = this.issueService.getIssue(this.id);
+          console.log('issue2 : ' + issue2);
+          console.log(issue2);
+          issue2
+            .subscribe(value => {
+              console.log('YESS');
+              console.log(value);
               this.issue = value;
               this.fixed = this.issue.statuses[this.issue.statuses.length - 1].status === 'Fixed';
               if (!loadedFromMap) {
