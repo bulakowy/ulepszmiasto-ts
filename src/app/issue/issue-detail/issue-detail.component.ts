@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Issue } from '../issue.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { IssueService } from '../issue.service';
-import { MapComponent } from '../issue-map/issue-map.component';
+import { IssueRestService } from '../issue.service.rest';
 
 @Component({
   selector: 'app-issue-detail',
@@ -14,24 +13,13 @@ export class IssueDetailComponent implements OnInit {
   issue: Issue;
   id: string;
 
-  fixed: boolean;
+  currentStatus: string;
 
   comment: string;
   commentAuthor: string;
 
-  addCommentVisible = false;
-  buttonsVisible = true;
-
-  constructor(private issueService: IssueService,
-              private route: ActivatedRoute,
-              private router: Router) {
-  }
-
-  onAddComment() {
-    this.comment = '';
-    this.commentAuthor = '';
-    this.addCommentVisible = true;
-    this.buttonsVisible = false;
+  constructor(private issueService: IssueRestService,
+              private route: ActivatedRoute) {
   }
 
   emptyString(str): boolean {
@@ -39,21 +27,14 @@ export class IssueDetailComponent implements OnInit {
   }
 
   onSubmitComment() {
-    this.addCommentVisible = false;
-    this.buttonsVisible = true;
     if (!this.emptyString(this.comment)) {
       this.issue.comments.push({
         comment: this.comment,
         author: this.emptyString(this.commentAuthor) ? 'Anonim' : this.commentAuthor,
-        date: new Date()
+        createdDate: new Date().getUTCSeconds()
       });
       this.issueService.updateExisting(this.issue);
     }
-  }
-
-  onCancelComment() {
-    this.addCommentVisible = false;
-    this.buttonsVisible = true;
   }
 
   ngOnInit() {
@@ -62,19 +43,15 @@ export class IssueDetailComponent implements OnInit {
         (params: Params) => {
           this.id = params['id'];
           const loadedFromMap = params['loadedFromMap'];
-          const issue2 = this.issueService.getIssue(this.id);
-          console.log('issue2 : ' + issue2);
-          console.log(issue2);
-          issue2
-            .subscribe(value => {
-              console.log('YESS');
-              console.log(value);
-              this.issue = value;
-              this.fixed = this.issue.statuses[this.issue.statuses.length - 1].status === 'Fixed';
-              if (!loadedFromMap) {
-                this.issueService.issueDetailsLoaded.emit(this.issue);
-              }
-            });
+          this.issueService.getIssue(this.id).subscribe(value => {
+            this.issue = value;
+            this.currentStatus = this.issue.statuses[this.issue.statuses.length - 1].status;
+            if (loadedFromMap) {
+              this.issueService.issueDetailsLoadedFromMap.emit(value);
+            } else {
+              this.issueService.issueDetailsLoadedFromOutside.emit(value);
+            }
+          });
         }
       );
   }

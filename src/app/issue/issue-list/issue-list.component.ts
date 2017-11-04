@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Issue } from '../issue.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IssueService } from '../issue.service';
-import { Response } from '@angular/http';
-import { IssueDetailComponent } from '../issue-detail/issue-detail.component';
-import { MapComponent } from '../issue-map/issue-map.component';
+import { IssueRestService } from '../issue.service.rest';
 
 @Component({
   selector: 'app-issue-list',
@@ -17,15 +12,14 @@ export class IssueListComponent implements OnInit {
     return this.issueService.issues;
   }
 
-  constructor(private issueService: IssueService,
-              private route: ActivatedRoute,
-              private router: Router) {
+  constructor(private issueService: IssueRestService) {
+
   }
 
   ngOnInit() {
     this.issueService.getIssues().subscribe(
       (issuesMap) => {
-        this.issueService.issuesReady.emit();
+        this.issueService.issuesReady.emit(issuesMap);
       },
       (error) => console.log(error)
     );

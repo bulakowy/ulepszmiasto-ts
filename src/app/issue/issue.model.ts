@@ -2,89 +2,25 @@ import { Utils } from '../utils/Utils';
 
 export class Issue {
 
-  private _id: string;
-  private _lng: number;
-  private _lat: number;
-  private _title: string;
-  private _desc: string;
-  private _createdBy: string;
-  private _createdAt: any;
+  id: string;
+  lng: number;
+  lat: number;
+  title: string;
+  desc: string;
+  createdBy: string;
+  createdDate: number;
 
-  private _statuses: { status: string, changed: string }[] = [];
+  statuses: { status: string, createdDate: number }[] = [];
 
-  private _images: any[] = [];
+  images: any[] = [];
 
-  private _comments: { comment: string, author: string, date: string }[] = [];
+  comments: { comment: string, author: string, createdDate: number }[] = [];
 
   constructor() {
   }
 
-  get id(): string {
-    return this._id;
-  }
-
-  set id(value: string) {
-    this._id = value;
-  }
-
-  get lng(): number {
-    return this._lng;
-  }
-
-  set lng(value: number) {
-    this._lng = value;
-  }
-
-  get lat(): number {
-    return this._lat;
-  }
-
-  set lat(value: number) {
-    this._lat = value;
-  }
-
-  get title(): string {
-    return this._title;
-  }
-
-  set title(value: string) {
-    this._title = value;
-  }
-
-  get desc(): string {
-    return this._desc;
-  }
-
-  set desc(value: string) {
-    this._desc = value;
-  }
-
-  get createdBy(): string {
-    return this._createdBy;
-  }
-
-  set createdBy(value: string) {
-    this._createdBy = value;
-  }
-
-  get createdAt(): any {
-    return this._createdAt;
-  }
-
-  set createdAt(value: any) {
-    this._createdAt = value;
-  }
-
-  get statuses(): { status: string; changed: string }[] {
-    return this._statuses;
-  }
-
-  get images(): any[] {
-    return this._images;
-  }
-
-  get comments(): { comment: string; author: string; date: any }[] {
-    return this._comments;
+  getCreatedDateAsDate(): Date {
+    return new Date(this.createdDate * 1000);
   }
 
 }

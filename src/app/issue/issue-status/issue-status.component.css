@@ -1,0 +1,15 @@
+.Open {
+  background-color: #f2dede;
+  border-color: #ebcccc;
+  color: #a94442;
+}
+
+.Closed {
+  background-color: #dff0d8;
+  border-color: #d0e9c6;
+  color: #3c763d;
+}
+
+.btn {
+  margin-top: -1px;
+}

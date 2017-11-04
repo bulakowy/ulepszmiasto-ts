@@ -1,83 +1,39 @@
 <div *ngIf="issue; then primaryBlock; else elseBlock"></div>
 
 <ng-template #primaryBlock>
-  <!--<div class="container">-->
 
   <div class="card p-3">
 
     <div class="row">
       <div class="col col-12">
-        <div class="alert alert-danger" role="alert">
-          This is a primary alert—check it out!
-        </div>
+        <app-issue-status [issue]="issue"></app-issue-status>
       </div>
     </div>
 
     <div class="row d-flex w-100 justify-content-between m-0">
-      <div class="col pl-0">
-        <span id="{{ issue.id }}" class="issue-title mb-3">{{ issue.title }}</span>
+      <div class="col pl-0 mb-2">
+        <span id="{{ issue.id }}" class="issue-title">{{ issue.title }}</span>
       </div>
       <div class="col-auto m-0 p-0 mb-1">
-        <!--<div class="row">-->
-          <!--<div class="col">-->
-            <!--<div *ngIf="fixed; else notfixed;">-->
-              <!--<span class="badge badge-success float-right mt-1 mb-1">Rozwiązany</span>-->
-              <!--<button class="btn mt-1 mb-1">Otwórz ponownie</button>-->
-            <!--</div>-->
-            <!--<ng-template #notfixed>-->
-              <!--<span class="badge badge-danger float-right mt-1 mb-1">Nierozwiązany</span>-->
-              <!--<button class="btn btn-sm mt-1 mb-1">Otwórz ponownie</button>-->
-            <!--</ng-template>-->
-          <!--</div>-->
-        <!--</div>-->
         <div class="row">
           <div class="col">
-            <small class="date-info float-right mb-1 text-right">Dodany {{ issue.createdAt | date:'d.M.y' }}
-              <!--o {{ issue.createdAt | date:'h:mm' }}-->
+            <small class="date-info float-right mb-1 text-right">
+              Dodany {{ issue.getCreatedDateAsDate() | date:'d.M.y'}}
             </small>
           </div>
         </div>
       </div>
-      <!--<h6 class="mb-1">Status: {{ issue.statuses[issue.statuses.length - 1].status }}</h6>-->
-      <!--<div class="col col-12 m-0 p-0">-->
-
-      <!--</div>-->
     </div>
-
-    <!--<div class="mt-3">-->
-
-    <!--</div>-->
 
     <p *ngIf="issue.desc" class="desc">{{ issue.desc }}</p>
 
-    <div *ngIf="issue && issue.images && issue.images.length > 0" class="row justify-content-lg-start pl-3 pr-3 pb-2 pt-0">
+    <div *ngIf="issue && issue.images && issue.images.length > 0"
+         class="row justify-content-lg-start pl-3 pr-3 pb-2 pt-0">
       <div *ngFor="let i of issue.images; let i = index"
            class="col col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 p-1">
         <img src="{{i.url}}" class="rounded img-fluid">
       </div>
     </div>
-
-    <!--<div class="row">-->
-      <!--<div class="col col-12">-->
-        <!--<div *ngIf="fixed; else notfixed;">-->
-          <!--<button class="btn mt-1 mb-1">Otwórz ponownie</button>-->
-        <!--</div>-->
-        <!--<ng-template #notfixed>-->
-          <!--<button class="btn btn-sm mt-1 mb-1">Otwórz ponownie</button>-->
-        <!--</ng-template>-->
-      <!--</div>-->
-    <!--</div>-->
-
-    <!-- Komentarze -->
-    <!--<div class="row">-->
-    <!--<div class="col-12">-->
-    <!--<h2 class="mt-3 mb-3">Komentarze</h2>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div *ngFor="let i of issue.comments; let i = index" class="comment">-->
-    <!--<p>{{ i.comment }}</p>-->
-    <!--<p class="comment-meta">{{ i.author }} - {{i.date}}</p>-->
-    <!--</div>-->
 
     <div class="row m-0 mt-3 p-0" style="background-color: black;">
       <div class="col col-12"></div>
@@ -97,38 +53,30 @@
       </div>
     </div>
 
-    <div *ngIf="addCommentVisible; then addComment;"></div>
-    <div *ngIf="buttonsVisible; then buttons;"></div>
+    <div class="form-group">
+        <textarea placeholder="Wpisz komentarz" [(ngModel)]="comment" name="comment" id="comment" rows="3"
+                  class="form-control"></textarea>
+    </div>
+    <div class="row">
+      <div class="col col-12">
+        <div class="form-inline">
+          <div class="form-group">
+            <input placeholder="Autor" class="form-control mr-2" type="text" [(ngModel)]="commentAuthor"
+                   name="commentAuthor"
+                   id="commentAuthor"/>
+          </div>
+          <!--<button for="addPhoto" class="add-photo-btn btn btn-sm btn-primary mr-1"><i class="fa fa-camera"-->
+                                                                                      <!--aria-hidden="true"></i></button>-->
+          <!--<input id="addPhoto" #addPhoto style="width:0; visibility:hidden;" type="file" accept="image/*"-->
+                 <!--capture="camera"/>-->
 
-    <ng-template #addComment>
-      <div class="form-group">
-        <textarea [(ngModel)]="comment" name="comment" id="comment" rows="3" class="form-control"></textarea>
-      </div>
-      <div class="row">
-        <div class="col col-12">
-          <div class="form-inline">
-            <div class="form-group">
-              <label class="mr-2" for="commentAuthor">Autor</label>
-              <input class="form-control mr-2" type="text" [(ngModel)]="commentAuthor" name="commentAuthor"
-                     id="commentAuthor"/>
-            </div>
-            <div class="form-group">
-              <button class="btn btn-sm btn-primary" (click)="onSubmitComment()">Dodaj</button>
-              <button class="btn btn-sm btn-danger ml-2" (click)="onCancelComment()">Anuluj</button>
-            </div>
+          <button class="btn btn-sm btn-primary" (click)="onSubmitComment()">Dodaj komentarz</button>
+          <div class="form-group">
+
           </div>
         </div>
       </div>
-    </ng-template>
-
-    <ng-template #buttons>
-      <div class="row">
-        <div class="col col-12">
-          <button class="btn btn-sm btn-primary" (click)="onAddComment()">Dodaj komentarz</button>
-          <!--<button class="btn btn-sm btn-primary">Dodaj zdjecie</button>-->
-        </div>
-      </div>
-    </ng-template>
+    </div>
 
   </div>
 </ng-template>

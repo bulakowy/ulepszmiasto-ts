@@ -51,10 +51,10 @@
         </div>
 
         <div class="row justify-content-lg-start pl-2 pr-2">
-          <div *ngFor="let image of images; let i = index"
+          <div *ngFor="let imgKey of objectKeys(images)"
                class="col col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 pl-2 pr-2">
-            <img src="{{image.url}}" class="rounded img-fluid mt-3">
-            <label class="btn btn-secondary close mt-3 mr-2" aria-label="Close" (click)="onDeleteClick(i)">
+            <img src="{{images[imgKey].url}}" class="rounded img-fluid mt-3">
+            <label class="btn btn-secondary close mt-3 mr-2" aria-label="Close" (click)="onDeleteClick(imgKey)">
               <span aria-hidden="true">&times;</span>
             </label>
           </div>

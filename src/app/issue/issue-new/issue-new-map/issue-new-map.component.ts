@@ -1,5 +1,4 @@
 import { Component, EventEmitter, AfterViewInit, OnInit, Output, Input } from '@angular/core';
-import { AgmCoreModule } from '@agm/core';
 
 @Component({
   selector: 'app-issue-new-map',

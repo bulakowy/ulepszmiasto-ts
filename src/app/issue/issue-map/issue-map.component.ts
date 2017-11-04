@@ -1,12 +1,8 @@
-import {
-  AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, Input, OnChanges,
-  OnInit, SimpleChange, SimpleChanges, ViewChild
-} from '@angular/core';
-import { Issue } from '../issue.model';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IssueService } from '../issue.service';
 import { isUndefined } from 'util';
 import { Const } from '../const';
+import { IssueRestService } from '../issue.service.rest';
 
 @Component({
   selector: 'app-map',
@@ -20,68 +16,72 @@ export class MapComponent implements OnInit {
   lng = 21.01178;
   properlyCentered = false;
 
-  @Input() issues;
-  issuesMap;
+  get issues() {
+    return this.issueService.issues;
+  }
 
-  clickedIssue;
+  get issuesMap() {
+    return this.issueService.issuesMap;
+  }
+
+  clickedIssueId;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private issueService: IssueService) {
-    this.issueService.issueDetailsLoaded.subscribe(
+              private issueService: IssueRestService) {
+
+  }
+
+  ngOnInit() {
+    this.issueService.issuesReady.subscribe((issuesMap) => {
+      console.log(1);
+      if (this.clickedIssueId) {
+        console.log(2);
+        this.highlightIssue(this.clickedIssueId);
+      }
+    });
+    this.issueService.issueDetailsLoadedFromOutside.subscribe(
       (issue) => {
         this.lat = issue.lat;
         this.lng = issue.lng;
         this.properlyCentered = true;
-        this.highlightIssue(issue);
+        this.highlightIssue(issue.id);
       }
     );
-  }
-
-  ngOnInit() {
+    this.issueService.issueDetailsLoadedFromMap.subscribe(
+      (issue) => {
+        this.highlightIssue(issue.id);
+      }
+    );
     this.setLocation();
-    this.issueService.issuesReady.subscribe(() => {
-      this.issuesMap = {};
-      for (const i of this.issues) {
-        this.issuesMap[i.id] = i;
-      }
-
-      if (this.clickedIssue) {
-        this.highlightIssue(this.clickedIssue);
-      }
-    });
   }
 
-  onMouseOver(infoWindow, gmap) {
-    if (gmap.lastOpen != null) {
-      gmap.lastOpen.close();
-    }
-    gmap.lastOpen = infoWindow;
-    infoWindow.open();
-  }
+  // onMouseOver(infoWindow, gmap) {
+  //   if (gmap.lastOpen != null) {
+  //     gmap.lastOpen.close();
+  //   }
+  //   gmap.lastOpen = infoWindow;
+  //   infoWindow.open();
+  // }
 
   onClick(gmap, issue) {
     if (gmap.lastOpen != null) {
       gmap.lastOpen.close();
     }
     if (!isUndefined(issue)) {
-      this.highlightIssue(issue);
+      this.highlightIssue(issue.id);
       this.router.navigate([issue.id, {loadedFromMap: true}], {relativeTo: this.route});
     }
   }
 
-  highlightIssue(issue) {
-
-    if (this.clickedIssue) {
-      this.clickedIssue['icon'] = Const.DEFAULT_ICON_URL;
+  highlightIssue(issueId) {
+    if (this.clickedIssueId && this.issuesMap && this.issuesMap[this.clickedIssueId]) {
+      this.issuesMap[this.clickedIssueId]['icon'] = Const.DEFAULT_ICON_URL;
     }
-    if (this.issuesMap && this.issuesMap[issue.id]) {
-      const newClicked = this.issuesMap[issue.id];
-      this.clickedIssue = newClicked;
-      this.clickedIssue['icon'] = Const.FOCUSED_ICON_URL;
-    } else {
-      this.clickedIssue = issue;
+    if (this.issuesMap && this.issuesMap[issueId]) {
+      this.issuesMap[issueId]['icon'] = Const.FOCUSED_ICON_URL;
     }
+    this.clickedIssueId = issueId;
   }
 
   setLocation() {

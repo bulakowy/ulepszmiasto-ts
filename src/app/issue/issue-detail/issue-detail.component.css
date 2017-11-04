@@ -16,11 +16,29 @@
   /*border: 1px solid rgba(0,0,0,.125);*/
 }
 
-.btn {
-  border-radius: 10px;
-}
-
 .issue-title {
   font-weight: 800;
   font-size: large;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color: #b8c1c3;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #b8c1c3;
+  opacity: 1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #b8c1c3;
+  opacity: 1;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #b8c1c3;
+}
+
+:-ms-input-placeholder { /* Microsoft Edge */
+  color: #b8c1c3;
 }

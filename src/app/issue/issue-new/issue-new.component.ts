@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Issue } from '../issue.model';
 import { NgForm } from '@angular/forms';
-import { IssueService } from '../issue.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
+import { NewIssueService } from './issue-new.service';
+import { IssueRestService } from '../issue.service.rest';
 
 @Component({
   selector: 'app-issue-new',
@@ -14,16 +15,28 @@ export class IssueNewComponent implements OnInit {
 
   @ViewChild('addPhoto') addPhotoInput;
 
-  issue = new Issue();
+  objectKeys = Object.keys;
 
-  images = [];
-
-  submitted;
-
-  constructor(private issueService: IssueService,
-              private route: ActivatedRoute,
+  constructor(private newIssueService: NewIssueService,
+              private issueService: IssueRestService,
               private router: Router,
               private ng2ImgToolsService: Ng2ImgToolsService) {
+  }
+
+  get issue(): Issue {
+    return this.newIssueService.issue;
+  }
+
+  get submitted(): string {
+    return this.newIssueService.submitted;
+  }
+
+  set submitted(s: string) {
+    this.newIssueService.submitted = s;
+  }
+
+  get images(): any {
+    return this.newIssueService.images;
   }
 
   ngOnInit() {
@@ -35,30 +48,33 @@ export class IssueNewComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+
     if (!this.issue.title) {
       this.submitted = 'submitted';
       return;
     }
 
-    this.issue.createdAt = new Date();
-    this.issue.statuses.push({status: 'Open', changed: this.issue.createdAt});
-    this.issue.createdBy = 'anonymous';
-
-    let i = 0;
-    for (const img of this.images) {
-      this.issue.images.push({id: i});
-      i++;
+    for (const p in this.images) {
+      if (this.images.hasOwnProperty(p)) {
+        this.issue.images.push({ord: p});
+      }
     }
 
-    // save issue to db
-    this.issueService.storeIssue(this.issue, this.images);
+    const issueToSave = this.issue;
+    const imagesToSave = this.images;
 
-    // TODO: display Thank you msg
-    this.router.navigate(['/new-issue-thank-you']);
+    // save issue to db
+    this.issueService.storeIssue(issueToSave, imagesToSave);
+
+    this.issueService.newIssueAdded.subscribe(
+      (issue) => {
+        this.router.navigate(['/issue-list/' + issue.id]);
+      });
+
   }
 
   onDeleteClick(imageIndex) {
-    this.images.splice(imageIndex, 1);
+    delete this.images[imageIndex];
   }
 
   onChange() {
@@ -70,12 +86,16 @@ export class IssueNewComponent implements OnInit {
       reader.onload = res => {
         const target: any = res.target;
 
-        this.ng2ImgToolsService.compress([fileBrowser.files[0]], 0.1).subscribe(result => {
-          this.images.push({url: target.result, file: result});
-        }, error => {
-          console.log(error);
-          this.images.push({url: target.result, file: fileBrowser.files[0]});
-        });
+        const idx = this.newIssueService.imgCounter++;
+        this.images[idx] = {url: target.result, file: fileBrowser.files[0]};
+
+        // this.ng2ImgToolsService.compressImage(fileBrowser.files[0], 0.2).subscribe(result => {
+        //   if (this.images[idx]) {
+        //     this.images[idx] = {url: target.result, file: result};
+        //   }
+        // }, error => {
+        //   console.log(error);
+        // });
       };
 
       reader.readAsDataURL(fileBrowser.files[0]);

@@ -15,7 +15,6 @@ import { IssueNewMapComponent } from './issue/issue-new/issue-new-map/issue-new-
 import { IssueNewThankyouComponent } from './issue/issue-new/issue-new-thankyou/issue-new-thankyou.component';
 import { IssueEditComponent } from './issue/issue-edit/issue-edit.component';
 import { AppRoutingModule } from './app-routing.module';
-import { IssueService } from './issue/issue.service';
 import { MainComponent } from './main/main.component';
 import { AccountComponent } from './account/account.component';
 import { InfoComponent } from './info/info.component';
@@ -27,6 +26,11 @@ import 'firebase/database';
 import { IssueStartComponent } from './issue/issue-start/issue-start.component';
 import { FooterComponent } from './footer/footer.component';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
+import { IssueStatusComponent } from './issue/issue-status/issue-status.component';
+import { IssueInfoComponent } from './issue/issue-info/issue-info.component';
+import { NewIssueService } from './issue/issue-new/issue-new.service';
+import { ImageService } from './issue/image.service';
+import { IssueRestService } from './issue/issue.service.rest';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,8 @@ import { Ng2ImgToolsModule } from 'ng2-img-tools';
     IssueNewThankyouComponent,
     IssueStartComponent,
     FooterComponent,
+    IssueStatusComponent,
+    IssueInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +66,11 @@ import { Ng2ImgToolsModule } from 'ng2-img-tools';
       apiKey: 'AIzaSyAVHZHByHkwScBEAJmKGUgC0HTJfNVg6PQ'
     })
   ],
-  providers: [IssueService],
+  providers: [
+    IssueRestService,
+    ImageService,
+    NewIssueService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
