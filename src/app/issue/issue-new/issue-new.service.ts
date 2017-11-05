@@ -7,8 +7,7 @@ import { IssueRestService } from '../issue.service.rest';
 export class NewIssueService {
 
   issue: Issue = new Issue();
-  images = {};
-  imgCounter = 0;
+  images = [];
   submitted = '';
 
   constructor(private issueService: IssueRestService) {
@@ -21,8 +20,7 @@ export class NewIssueService {
 
   reset() {
     this.issue = new Issue();
-    this.images = {};
-    this.imgCounter = 0;
+    this.images = [];
     this.submitted = '';
   }
 }

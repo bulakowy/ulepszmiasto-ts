@@ -8,12 +8,7 @@ import { IssueRestService } from '../issue.service.rest';
 })
 export class IssueListComponent implements OnInit {
 
-  get issues() {
-    return this.issueService.issues;
-  }
-
   constructor(private issueService: IssueRestService) {
-
   }
 
   ngOnInit() {

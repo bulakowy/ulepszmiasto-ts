@@ -18,6 +18,8 @@ export class IssueDetailComponent implements OnInit {
   comment: string;
   commentAuthor: string;
 
+  showThankYouMsg = false;
+
   constructor(private issueService: IssueRestService,
               private route: ActivatedRoute) {
   }
@@ -28,12 +30,15 @@ export class IssueDetailComponent implements OnInit {
 
   onSubmitComment() {
     if (!this.emptyString(this.comment)) {
-      this.issue.comments.push({
+      const newComment = {
         comment: this.comment,
-        author: this.emptyString(this.commentAuthor) ? 'Anonim' : this.commentAuthor,
-        createdDate: new Date().getUTCSeconds()
-      });
-      this.issueService.updateExisting(this.issue);
+        createdBy: this.emptyString(this.commentAuthor) ? 'Anonim' : this.commentAuthor,
+        createdDate: new Date().getTime() / 1000
+      };
+      this.issue.comments.push(newComment);
+      this.issueService.addComment(this.issue.id, newComment);
+      this.comment = '';
+      this.commentAuthor = '';
     }
   }
 
@@ -41,8 +46,10 @@ export class IssueDetailComponent implements OnInit {
     this.route.params
       .subscribe(
         (params: Params) => {
+
           this.id = params['id'];
           const loadedFromMap = params['loadedFromMap'];
+
           this.issueService.getIssue(this.id).subscribe(value => {
             this.issue = value;
             this.currentStatus = this.issue.statuses[this.issue.statuses.length - 1].status;
@@ -52,6 +59,8 @@ export class IssueDetailComponent implements OnInit {
               this.issueService.issueDetailsLoadedFromOutside.emit(value);
             }
           });
+
+          this.showThankYouMsg = params['newIssue'];
         }
       );
   }

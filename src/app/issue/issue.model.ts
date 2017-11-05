@@ -14,7 +14,7 @@ export class Issue {
 
   images: any[] = [];
 
-  comments: { comment: string, author: string, createdDate: number }[] = [];
+  comments: { comment: string, createdBy: string, createdDate: number }[] = [];
 
   constructor() {
   }

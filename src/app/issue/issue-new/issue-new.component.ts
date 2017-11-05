@@ -54,12 +54,6 @@ export class IssueNewComponent implements OnInit {
       return;
     }
 
-    for (const p in this.images) {
-      if (this.images.hasOwnProperty(p)) {
-        this.issue.images.push({ord: p});
-      }
-    }
-
     const issueToSave = this.issue;
     const imagesToSave = this.images;
 
@@ -68,13 +62,13 @@ export class IssueNewComponent implements OnInit {
 
     this.issueService.newIssueAdded.subscribe(
       (issue) => {
-        this.router.navigate(['/issue-list/' + issue.id]);
+        this.router.navigate(['/issue-list/' + issue.id, {loadedFromMap: false, newIssue: true}]);
       });
-
   }
 
   onDeleteClick(imageIndex) {
-    delete this.images[imageIndex];
+    console.log(imageIndex);
+    this.images.splice(imageIndex, 1);
   }
 
   onChange() {
@@ -86,8 +80,7 @@ export class IssueNewComponent implements OnInit {
       reader.onload = res => {
         const target: any = res.target;
 
-        const idx = this.newIssueService.imgCounter++;
-        this.images[idx] = {url: target.result, file: fileBrowser.files[0]};
+        this.images.push({url: target.result, file: fileBrowser.files[0]});
 
         // this.ng2ImgToolsService.compressImage(fileBrowser.files[0], 0.2).subscribe(result => {
         //   if (this.images[idx]) {

@@ -3,12 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueNewComponent } from './issue/issue-new/issue-new.component';
 import { IssueDetailComponent } from './issue/issue-detail/issue-detail.component';
-import { IssueEditComponent } from './issue/issue-edit/issue-edit.component';
 import { MainComponent } from './main/main.component';
 import { InfoComponent } from './info/info.component';
 import { ContactComponent } from './contact/contact.component';
 import { AccountComponent } from './account/account.component';
-import { IssueNewThankyouComponent } from './issue/issue-new/issue-new-thankyou/issue-new-thankyou.component';
 import { IssueStartComponent } from './issue/issue-start/issue-start.component';
 
 const appRoutes: Routes = [
@@ -21,8 +19,7 @@ const appRoutes: Routes = [
     { path: '', component: IssueStartComponent },
     { path: ':id', component: IssueDetailComponent }
   ] },
-  { path: 'new-issue', component: IssueNewComponent },
-  { path: 'new-issue-thank-you', component: IssueNewThankyouComponent }
+  { path: 'new-issue', component: IssueNewComponent }
 ];
 
 @NgModule({

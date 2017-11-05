@@ -12,7 +12,6 @@ import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueDetailComponent } from './issue/issue-detail/issue-detail.component';
 import { IssueNewComponent } from './issue/issue-new/issue-new.component';
 import { IssueNewMapComponent } from './issue/issue-new/issue-new-map/issue-new-map.component';
-import { IssueNewThankyouComponent } from './issue/issue-new/issue-new-thankyou/issue-new-thankyou.component';
 import { IssueEditComponent } from './issue/issue-edit/issue-edit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MainComponent } from './main/main.component';
@@ -31,6 +30,7 @@ import { IssueInfoComponent } from './issue/issue-info/issue-info.component';
 import { NewIssueService } from './issue/issue-new/issue-new.service';
 import { ImageService } from './issue/image.service';
 import { IssueRestService } from './issue/issue.service.rest';
+import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,6 @@ import { IssueRestService } from './issue/issue.service.rest';
     AccountComponent,
     InfoComponent,
     ContactComponent,
-    IssueNewThankyouComponent,
     IssueStartComponent,
     FooterComponent,
     IssueStatusComponent,
@@ -60,6 +59,7 @@ import { IssueRestService } from './issue/issue.service.rest';
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
+    AngularFontAwesomeModule,
     NgbModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AgmCoreModule.forRoot({

@@ -23,7 +23,7 @@ body {
   width: 100%;
 
   display: block;
-  background-image: url('assets/img/background.jpg');
+  background-image: url('../img/background.jpg');
 
   /*background-color: #F0F4FD;*/
   /*background: -webkit-linear-gradient(left top, #F0F4FD, white); !* For Safari 5.1 to 6.0 *!*/
@@ -74,7 +74,7 @@ body {
 
 .container {
   margin: 0 auto;
-  height: 100%;
+  min-width: 100%;
 }
 
 @media (min-width: 992px) {

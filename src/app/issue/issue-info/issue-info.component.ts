@@ -1,17 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { IssueRestService } from '../issue.service.rest';
 
 @Component({
   selector: 'app-issue-info',
   templateUrl: './issue-info.component.html',
   styleUrls: ['./issue-info.component.css']
 })
-export class IssueInfoComponent implements OnInit {
+export class IssueInfoComponent {
 
-  @Input() msg: string;
+  get msg() {
+    return this.issueService.msg;
+  }
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private issueService: IssueRestService) {
   }
 
 }

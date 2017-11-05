@@ -51,10 +51,10 @@
         </div>
 
         <div class="row justify-content-lg-start pl-2 pr-2">
-          <div *ngFor="let imgKey of objectKeys(images)"
-               class="col col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 pl-2 pr-2">
-            <img src="{{images[imgKey].url}}" class="rounded img-fluid mt-3">
-            <label class="btn btn-secondary close mt-3 mr-2" aria-label="Close" (click)="onDeleteClick(imgKey)">
+          <div *ngFor="let i of images; let idx = index"
+               class="col col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 pl-2 pr-2">
+            <img src="{{i.url}}" class="img rounded img-fluid mt-3">
+            <label class="btn btn-secondary close mt-3 mr-2" aria-label="Close" (click)="onDeleteClick(idx)">
               <span aria-hidden="true">&times;</span>
             </label>
           </div>
@@ -70,8 +70,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="createdBy">E-mail (jeśli chcesz otrzymywać powiadomienia o swoim
-            zgłoszeniu)</label>
+          <label class="form-control-label" for="createdBy">Autor</label>
           <input
             class="form-control issue-email"
             type="email"

@@ -13,9 +13,11 @@ import { IssueService } from './issue.service';
 @Injectable()
 export class IssueRestService implements IssueService {
 
-  serviceUrl = 'http://localhost:8080/issues';
+  private _serviceUrl = 'http://localhost:8080/issues';
 
   private _issuesMap = {};
+
+  msg = '';
 
   newIssueAdded = new EventEmitter<Issue>();
   issueUpdated = new EventEmitter<Issue>();
@@ -23,14 +25,19 @@ export class IssueRestService implements IssueService {
   issueDetailsLoadedFromOutside = new EventEmitter<Issue>();
   issueDetailsLoadedFromMap = new EventEmitter<Issue>();
 
-  private _issueStored = new EventEmitter<Issue>();
+  private _newIssueStored = new EventEmitter<Issue>();
 
   constructor(private http: Http,
               private imageService: ImageService) {
-    this._issueStored.subscribe(
+    this._newIssueStored.subscribe(
       (issue) => {
         this.getIssue(issue.id).subscribe(newIssue => {
           this._issuesMap[issue.id] = newIssue;
+          this.msg = 'Dziękujemy! Twoje zgłoszenie zostało dodane.';
+          setTimeout(() => {
+            this.msg = '';
+          }, 10000);
+
           this.newIssueAdded.emit(newIssue);
         });
       });
@@ -48,9 +55,9 @@ export class IssueRestService implements IssueService {
 
     const imagesCount = Object.keys(images).length;
 
-    const latch = new CountDownLatch(imagesCount + 1, this._issueStored, issue);
+    const latch = new CountDownLatch(imagesCount + 1, this._newIssueStored, issue);
 
-    this.http.post(this.serviceUrl, issue)
+    this.http.post(this._serviceUrl, issue)
       .subscribe(
         (result: Response) => {
           issue.id = result.json()['id'];
@@ -73,7 +80,7 @@ export class IssueRestService implements IssueService {
         this.imageService.uploadImageToFirebase(issueId, ordCopy, images[key].file)
           .then(res => {
             console.log(res.downloadURL);
-            this.http.put(this.serviceUrl + '/' + issueId + '/images/' + ordCopy, res.downloadURL)
+            this.http.post(this._serviceUrl + '/' + issueId + '/images', res.downloadURL)
               .subscribe(
                 (result: Response) => {
                   latch.countDown();
@@ -90,7 +97,7 @@ export class IssueRestService implements IssueService {
   }
 
   updateExisting(issue: Issue) {
-    this.http.put(this.serviceUrl + '/' + issue.id, issue)
+    this.http.put(this._serviceUrl + '/' + issue.id, issue)
       .subscribe(
         (result) => this.issueUpdated.emit(issue),
         (error) => console.log(error)
@@ -98,7 +105,7 @@ export class IssueRestService implements IssueService {
   }
 
   getIssues(): any {
-    return this.http.get(this.serviceUrl)
+    return this.http.get(this._serviceUrl)
       .map((response: Response) => {
         const json = response.json();
         for (const p in json) {
@@ -122,13 +129,24 @@ export class IssueRestService implements IssueService {
       });
     }
 
-    return this.http.get(this.serviceUrl + '/' + id)
+    return this.http.get(this._serviceUrl + '/' + id)
       .map((res: Response) => {
         const i = new Issue();
         Object.assign(i, res.json());
         i.id = id;
         return i;
       });
+  }
+
+  addComment(issueId: string, comment: any) {
+    this.http.post(this._serviceUrl + '/' + issueId + '/comments/', comment)
+      .subscribe(
+        (result: Response) => {
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
 }
