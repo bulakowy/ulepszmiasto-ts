@@ -18,3 +18,11 @@
 .card-text {
   display: none;
 }
+
+.marker {
+  z-index: 1;
+}
+
+.selectedMarker {
+  z-index: 2;
+}

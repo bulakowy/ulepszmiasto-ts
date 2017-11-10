@@ -12,7 +12,6 @@ import { IssueListComponent } from './issue/issue-list/issue-list.component';
 import { IssueDetailComponent } from './issue/issue-detail/issue-detail.component';
 import { IssueNewComponent } from './issue/issue-new/issue-new.component';
 import { IssueNewMapComponent } from './issue/issue-new/issue-new-map/issue-new-map.component';
-import { IssueEditComponent } from './issue/issue-edit/issue-edit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MainComponent } from './main/main.component';
 import { AccountComponent } from './account/account.component';
@@ -22,15 +21,16 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import 'firebase/storage';
 import 'firebase/database';
-import { IssueStartComponent } from './issue/issue-start/issue-start.component';
 import { FooterComponent } from './footer/footer.component';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
 import { IssueStatusComponent } from './issue/issue-status/issue-status.component';
-import { IssueInfoComponent } from './issue/issue-info/issue-info.component';
 import { NewIssueService } from './issue/issue-new/issue-new.service';
 import { ImageService } from './issue/image.service';
-import { IssueRestService } from './issue/issue.service.rest';
+import { IssueRestService } from './issue/issue.rest.service';
 import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
+import { MsgComponent } from './msg/msg.component';
+import { MsgService } from './msg/msg.service';
+import { MapService } from './issue/issue-map/issue-map.service';
 
 @NgModule({
   declarations: [
@@ -41,15 +41,13 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awes
     IssueDetailComponent,
     IssueNewComponent,
     IssueNewMapComponent,
-    IssueEditComponent,
     MainComponent,
     AccountComponent,
     InfoComponent,
     ContactComponent,
-    IssueStartComponent,
     FooterComponent,
     IssueStatusComponent,
-    IssueInfoComponent,
+    MsgComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +67,9 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awes
   providers: [
     IssueRestService,
     ImageService,
-    NewIssueService
+    MsgService,
+    NewIssueService,
+    MapService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Issue } from './issue.model';
 import 'rxjs/add/operator/toPromise';
@@ -8,43 +8,30 @@ import { Observer } from 'rxjs/Observer';
 import { Const } from './const';
 import { CountDownLatch } from '../utils/CountDownLatch';
 import { ImageService } from './image.service';
-import { IssueService } from './issue.service';
+import { MsgService } from '../msg/msg.service';
 
 @Injectable()
-export class IssueRestService implements IssueService {
+export class IssueRestService {
 
   private _serviceUrl = 'http://localhost:8080/issues';
 
   private _issuesMap = {};
 
-  msg = '';
-
   newIssueAdded = new EventEmitter<Issue>();
-  issueUpdated = new EventEmitter<Issue>();
-  issuesReady = new EventEmitter<any>();
-  issueDetailsLoadedFromOutside = new EventEmitter<Issue>();
-  issueDetailsLoadedFromMap = new EventEmitter<Issue>();
 
   private _newIssueStored = new EventEmitter<Issue>();
 
   constructor(private http: Http,
-              private imageService: ImageService) {
+              private imageService: ImageService,
+              private msgService: MsgService) {
     this._newIssueStored.subscribe(
       (issue) => {
         this.getIssue(issue.id).subscribe(newIssue => {
           this._issuesMap[issue.id] = newIssue;
-          this.msg = 'Dziękujemy! Twoje zgłoszenie zostało dodane.';
-          setTimeout(() => {
-            this.msg = '';
-          }, 10000);
-
+          this.msgService.msg = 'Dziękujemy! Twoje zgłoszenie zostało dodane.';
           this.newIssueAdded.emit(newIssue);
         });
       });
-  }
-
-  get issuesMap(): any {
-    return this._issuesMap;
   }
 
   get issues(): any[] {
@@ -94,14 +81,6 @@ export class IssueRestService implements IssueService {
         ord++;
       }
     }
-  }
-
-  updateExisting(issue: Issue) {
-    this.http.put(this._serviceUrl + '/' + issue.id, issue)
-      .subscribe(
-        (result) => this.issueUpdated.emit(issue),
-        (error) => console.log(error)
-      );
   }
 
   getIssues(): any {

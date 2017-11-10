@@ -1,32 +1,21 @@
-<!-- this creates a google issue-map on the page with the given lat/longitude from -->
-<!-- the component as the initial center of the issue-map: -->
 <div class="map-border">
   <div class="map">
-    <agm-map #gmap [latitude]="lat" [longitude]="lng" [zoom]="zoom" [gestureHandling]="'greedy'">
-      <!--(mapClick)="onClick(gmap)">-->
-      <agm-marker *ngFor="let i of issues"
-                  [latitude]="i.lat" [longitude]="i.lng"
-                  [iconUrl]="i.icon"
-
-                  (markerClick)="onClick(gmap, i)">
-
+    <agm-map #gmap [latitude]="lat" [longitude]="lng" [zoom]="zoom" [gestureHandling]="'greedy'" [streetViewControl]=false>
+      <agm-marker
+        *ngFor="let i of issues"
+        class="marker"
+        [latitude]="i.lat"
+        [longitude]="i.lng"
+        [iconUrl]="'assets/img/default-marker.png'"
+        (markerClick)="onClick(gmap, i)">
+      </agm-marker>
+      <agm-marker class="selectedMarker"
+                  *ngIf="selectedIssue"
+                  [latitude]="selectedIssue.lat"
+                  [longitude]="selectedIssue.lng"
+                  [iconUrl]="'assets/img/clicked-marker.png'">
       </agm-marker>
     </agm-map>
   </div>
 </div>
-
-<!--(mouseOver)="onMouseOver(infoWindow, gmap)"-->
-<!--<agm-info-window [disableAutoPan]="false" #infoWindow>-->
-<!--<div class="info-window">-->
-<!--<div class="card-block p-1">-->
-<!--<a href="#" class="card-title">{{i.title}} </a>-->
-<!--<p class="card-text mt-1">{{i.desc}}</p>-->
-<!--</div>-->
-<!--</div>-->
-<!--</agm-info-window>-->
-
-<!--<div>-->
-<!--<a (click)="onClickInfoView({id:m.id})" class="btn btn-attention pull-right">Daje <i-->
-<!--class="fa fa-angle-double-right"></i></a>-->
-<!--</div>-->
 

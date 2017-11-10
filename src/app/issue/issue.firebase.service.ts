@@ -8,11 +8,10 @@ import { Observer } from 'rxjs/Observer';
 import { Const } from './const';
 import { CountDownLatch } from '../utils/CountDownLatch';
 import { ImageService } from './image.service';
-import { IssueService } from './issue.service';
 import { FirebaseApp } from 'angularfire2';
 
 @Injectable()
-export class IssueFirebaseService implements IssueService {
+export class IssueFirebaseService {
 
   firebaseUrl = 'https://ulepszmiasto-ng.firebaseio.com/data';
 

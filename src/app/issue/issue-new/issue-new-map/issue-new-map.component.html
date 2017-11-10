@@ -1,9 +1,9 @@
 <div class="map-border">
   <div class="map">
-    <agm-map style="z-index: -1"
-             [latitude]="lat" [longitude]="lng" [zoom]="defaultZoom"
+    <agm-map #gmap style="z-index: -1"
+             [latitude]="lat" [longitude]="lng" [zoom]="zoom"
              [gestureHandling]="'greedy'"
-             (centerChange)="onCenterChange($event)">
+             [streetViewControl]=false>
     </agm-map>
     <img src="assets/img/pin.png"/>
   </div>

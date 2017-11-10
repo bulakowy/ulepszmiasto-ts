@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Issue } from '../issue.model';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { IssueRestService } from '../issue.service.rest';
+import { ActivatedRoute, Params } from '@angular/router';
+import { IssueRestService } from '../issue.rest.service';
+import { MapService } from '../issue-map/issue-map.service';
 
 @Component({
   selector: 'app-issue-detail',
@@ -10,17 +11,21 @@ import { IssueRestService } from '../issue.service.rest';
 })
 export class IssueDetailComponent implements OnInit {
 
-  issue: Issue;
-  id: string;
+  get issue() {
+    return this.mapService.selectedIssue;
+  }
+
+  set issue(i: Issue) {
+    this.mapService.selectedIssue = i;
+  }
 
   currentStatus: string;
 
   comment: string;
   commentAuthor: string;
 
-  showThankYouMsg = false;
-
   constructor(private issueService: IssueRestService,
+              private mapService: MapService,
               private route: ActivatedRoute) {
   }
 
@@ -47,20 +52,15 @@ export class IssueDetailComponent implements OnInit {
       .subscribe(
         (params: Params) => {
 
-          this.id = params['id'];
-          const loadedFromMap = params['loadedFromMap'];
+          const id = params['id'];
 
-          this.issueService.getIssue(this.id).subscribe(value => {
-            this.issue = value;
-            this.currentStatus = this.issue.statuses[this.issue.statuses.length - 1].status;
-            if (loadedFromMap) {
-              this.issueService.issueDetailsLoadedFromMap.emit(value);
-            } else {
-              this.issueService.issueDetailsLoadedFromOutside.emit(value);
-            }
-          });
-
-          this.showThankYouMsg = params['newIssue'];
+          if (id) {
+            this.issueService.getIssue(id).subscribe(value => {
+              this.issue = value;
+              this.currentStatus = this.issue.statuses[this.issue.statuses.length - 1].status;
+              this.mapService.selectIssueAndCenter(this.issue);
+            });
+          }
         }
       );
   }

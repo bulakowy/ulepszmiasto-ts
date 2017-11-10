@@ -7,7 +7,6 @@ import { MainComponent } from './main/main.component';
 import { InfoComponent } from './info/info.component';
 import { ContactComponent } from './contact/contact.component';
 import { AccountComponent } from './account/account.component';
-import { IssueStartComponent } from './issue/issue-start/issue-start.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
@@ -16,7 +15,7 @@ const appRoutes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'account', component: AccountComponent },
   { path: 'issue-list', component: IssueListComponent, children: [
-    { path: '', component: IssueStartComponent },
+    { path: '', component: IssueDetailComponent },
     { path: ':id', component: IssueDetailComponent }
   ] },
   { path: 'new-issue', component: IssueNewComponent }

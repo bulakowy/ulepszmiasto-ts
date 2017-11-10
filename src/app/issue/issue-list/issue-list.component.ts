@@ -1,23 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { IssueRestService } from '../issue.service.rest';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-issue-list',
   templateUrl: './issue-list.component.html',
   styleUrls: ['./issue-list.component.css']
 })
-export class IssueListComponent implements OnInit {
+export class IssueListComponent {
 
-  constructor(private issueService: IssueRestService) {
-  }
-
-  ngOnInit() {
-    this.issueService.getIssues().subscribe(
-      (issuesMap) => {
-        this.issueService.issuesReady.emit(issuesMap);
-      },
-      (error) => console.log(error)
-    );
+  constructor() {
   }
 
 }

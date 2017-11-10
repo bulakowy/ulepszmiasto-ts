@@ -1,26 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Issue } from '../issue.model';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
 import { NewIssueService } from './issue-new.service';
-import { IssueRestService } from '../issue.service.rest';
+import { IssueRestService } from '../issue.rest.service';
+import { IssueNewMapComponent } from './issue-new-map/issue-new-map.component';
 
 @Component({
   selector: 'app-issue-new',
   templateUrl: './issue-new.component.html',
   styleUrls: ['./issue-new.component.css']
 })
-export class IssueNewComponent implements OnInit {
+export class IssueNewComponent {
 
   @ViewChild('addPhoto') addPhotoInput;
-
-  objectKeys = Object.keys;
+  @ViewChild('map') map: IssueNewMapComponent;
 
   constructor(private newIssueService: NewIssueService,
               private issueService: IssueRestService,
-              private router: Router,
-              private ng2ImgToolsService: Ng2ImgToolsService) {
+              private router: Router) {
   }
 
   get issue(): Issue {
@@ -39,20 +38,15 @@ export class IssueNewComponent implements OnInit {
     return this.newIssueService.images;
   }
 
-  ngOnInit() {
-  }
-
-  onCoordinatesChanged(newCoords) {
-    this.issue.lng = newCoords.lng;
-    this.issue.lat = newCoords.lat;
-  }
-
   onSubmit(form: NgForm) {
 
     if (!this.issue.title) {
       this.submitted = 'submitted';
       return;
     }
+
+    this.issue.lng = this.map.gmap.longitude;
+    this.issue.lat = this.map.gmap.latitude;
 
     const issueToSave = this.issue;
     const imagesToSave = this.images;
@@ -67,7 +61,6 @@ export class IssueNewComponent implements OnInit {
   }
 
   onDeleteClick(imageIndex) {
-    console.log(imageIndex);
     this.images.splice(imageIndex, 1);
   }
 
@@ -81,14 +74,6 @@ export class IssueNewComponent implements OnInit {
         const target: any = res.target;
 
         this.images.push({url: target.result, file: fileBrowser.files[0]});
-
-        // this.ng2ImgToolsService.compressImage(fileBrowser.files[0], 0.2).subscribe(result => {
-        //   if (this.images[idx]) {
-        //     this.images[idx] = {url: target.result, file: result};
-        //   }
-        // }, error => {
-        //   console.log(error);
-        // });
       };
 
       reader.readAsDataURL(fileBrowser.files[0]);
